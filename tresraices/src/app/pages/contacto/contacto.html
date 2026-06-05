@@ -1,1 +1,122 @@
-<p>contacto works!</p>
+<section class="contact-hero">
+  <div class="contact-hero-bg"></div>
+  <div class="contact-hero-gradient"></div>
+  <div class="container contact-hero-content">
+    <div class="contact-hero-badge">Contacto</div>
+    <h1 class="contact-hero-title">Estamos para ayudarte</h1>
+    <p class="contact-hero-subtitle">Encontrá el terreno perfecto para tu próximo proyecto</p>
+  </div>
+</section>
+
+<section class="section-padding">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-6">
+        <div class="section-label">
+          <span class="section-line"></span>
+          Escribinos
+        </div>
+        <h2 class="section-title">Hablemos de tu <span class="text-gold">proyecto</span></h2>
+        <p class="section-subtitle mb-4">Completá el formulario y te responderemos a la brevedad</p>
+
+        @if (sent) {
+          <div class="contact-success">
+            <i class="bi bi-check-circle-fill success-icon"></i>
+            <div>
+              <strong>¡Mensaje enviado!</strong>
+              <p>Gracias por contactarnos. Te vamos a responder a la brevedad.</p>
+            </div>
+          </div>
+        }
+
+        <form (ngSubmit)="onSubmit()" class="contact-form">
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Nombre completo</label>
+                <input type="text" class="form-control-modern" placeholder="Juan Pérez" [(ngModel)]="form.nombre" name="nombre" required>
+                @if (submitted && !form.nombre) {
+                  <small class="text-danger">Requerido</small>
+                }
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Teléfono</label>
+                <input type="tel" class="form-control-modern" placeholder="3512345678" [(ngModel)]="form.telefono" name="telefono" required>
+                @if (submitted && !form.telefono) {
+                  <small class="text-danger">Requerido</small>
+                }
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control-modern" placeholder="tu@email.com" [(ngModel)]="form.email" name="email" required>
+                @if (submitted && !form.email) {
+                  <small class="text-danger">Requerido</small>
+                }
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label>Mensaje</label>
+                <textarea class="form-control-modern" rows="5" placeholder="Contanos cómo podemos ayudarte..." [(ngModel)]="form.mensaje" name="mensaje"></textarea>
+              </div>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn-gold">Enviar mensaje <i class="bi bi-arrow-right"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-lg-5 offset-lg-1">
+        <div class="contact-info-card">
+          <div class="contact-info-image">
+            <img src="assets/centro-hero.png" alt="Oficina">
+            <div class="contact-info-overlay">
+              <span>Nuestra oficina</span>
+            </div>
+          </div>
+
+          <div class="contact-info-items">
+            <div class="contact-info-item">
+              <i class="bi bi-geo-alt-fill ci-icon"></i>
+              <div>
+                <strong>Dirección</strong>
+                <p>Av. Principal 123, Córdoba</p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <i class="bi bi-telephone-fill ci-icon"></i>
+              <div>
+                <strong>Teléfono</strong>
+                <p>+54 9 351 234-5678</p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <i class="bi bi-envelope-fill ci-icon"></i>
+              <div>
+                <strong>Email</strong>
+                <p>info&#64;tresraices.com</p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <i class="bi bi-clock-fill ci-icon"></i>
+              <div>
+                <strong>Horarios</strong>
+                <p>Lun - Vie: 9:00 - 18:00 / Sáb: 9:00 - 13:00</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="https://wa.me/5493512345678" target="_blank" rel="noopener noreferrer" class="btn-wpp w-100 d-inline-flex justify-content-center" style="text-decoration:none;border-radius:0 0 var(--radius-xl) var(--radius-xl);padding:1rem;">
+            <i class="bi bi-whatsapp"></i>
+            Consultar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,1 +1,50 @@
-<p>navbar works!</p>
+<nav class="navbar-main" [class.scrolled]="scrolled">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/" (click)="closeMobile()">
+      <i class="bi bi-diamond-fill brand-icon"></i>
+      <span class="brand-text">Tres <span class="text-gold">Raíces</span></span>
+    </a>
+
+    <button
+      class="hamburger"
+      [class.active]="mobileOpen"
+      (click)="mobileOpen = !mobileOpen"
+      aria-label="Toggle menu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="nav-collapse" [class.open]="mobileOpen">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="closeMobile()">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" fragment="propiedades" (click)="closeMobile()">Propiedades</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contacto" routerLinkActive="active" (click)="closeMobile()">Contacto</a>
+        </li>
+        @if (auth.isLoggedIn()) {
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-gear-fill me-1"></i>Admin
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/admin/lotes" (click)="closeMobile()"><i class="bi bi-grid-fill me-2"></i>Gestionar Lotes</a></li>
+              <li><a class="dropdown-item" routerLink="/admin/leads" (click)="closeMobile()"><i class="bi bi-chat-dots-fill me-2"></i>Solicitudes</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><button class="dropdown-item" (click)="logout()"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</button></li>
+            </ul>
+          </li>
+        } @else {
+          <li class="nav-item">
+            <a class="nav-link btn-login" routerLink="/login" routerLinkActive="active" (click)="closeMobile()"><i class="bi bi-person-fill me-1"></i>Ingresar</a>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</nav>

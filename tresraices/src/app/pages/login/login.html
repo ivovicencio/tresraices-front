@@ -1,1 +1,82 @@
-<p>login works!</p>
+<section class="auth-section">
+  <div class="auth-bg"></div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="auth-card">
+          <div class="auth-header">
+            <div class="auth-logo">
+              <i class="bi bi-diamond-fill auth-logo-icon"></i>
+              <span class="auth-logo-text">Tres <span class="text-gold">Raíces</span></span>
+            </div>
+            <h3>{{ isRegister ? 'Crear Cuenta' : 'Iniciar Sesión' }}</h3>
+            <p class="auth-subtitle">
+              {{ isRegister ? 'Regístrate para gestionar propiedades' : 'Accede al panel de administración' }}
+            </p>
+          </div>
+
+          @if (error) {
+            <div class="auth-alert">
+              <i class="bi bi-exclamation-circle-fill"></i>
+              {{ error }}
+            </div>
+          }
+
+          @if (!isRegister) {
+            <form (ngSubmit)="onLogin()" class="auth-form">
+              <div class="auth-field">
+                <label>Email</label>
+                <input type="email" class="form-control-modern" [(ngModel)]="loginData.email" name="email" required placeholder="tu@email.com">
+              </div>
+              <div class="auth-field">
+                <label>Contraseña</label>
+                <input type="password" class="form-control-modern" [(ngModel)]="loginData.password" name="password" required placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;">
+              </div>
+              <button type="submit" class="btn-gold w-100 justify-content-center" [disabled]="loading">
+                @if (loading) {
+                  <span class="spinner-border spinner-border-sm me-1"></span>
+                }
+                Ingresar
+              </button>
+            </form>
+          } @else {
+            <form (ngSubmit)="onRegister()" class="auth-form">
+              <div class="auth-field">
+                <label>Nombre completo</label>
+                <input type="text" class="form-control-modern" [(ngModel)]="registerData.nombre" name="nombre" required placeholder="Juan Pérez">
+              </div>
+              <div class="auth-field">
+                <label>Teléfono</label>
+                <input type="tel" class="form-control-modern" [(ngModel)]="registerData.telefono" name="telefono" required placeholder="3512345678">
+              </div>
+              <div class="auth-field">
+                <label>Email</label>
+                <input type="email" class="form-control-modern" [(ngModel)]="registerData.email" name="email" required placeholder="tu@email.com">
+              </div>
+              <div class="auth-field">
+                <label>Contraseña</label>
+                <input type="password" class="form-control-modern" [(ngModel)]="registerData.password" name="password" required placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;">
+              </div>
+              <button type="submit" class="btn-gold w-100 justify-content-center" [disabled]="loading">
+                @if (loading) {
+                  <span class="spinner-border spinner-border-sm me-1"></span>
+                }
+                Registrarse
+              </button>
+            </form>
+          }
+
+          <div class="auth-toggle">
+            <button class="auth-toggle-btn" (click)="toggleMode()">
+              {{ isRegister ? '¿Ya tenés cuenta? Ingresá' : '¿No tenés cuenta? Registrate' }}
+            </button>
+          </div>
+
+          <div class="auth-back">
+            <a routerLink="/"><i class="bi bi-arrow-left me-1"></i>Volver al inicio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

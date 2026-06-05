@@ -1,0 +1,232 @@
+.navbar-main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 0;
+  transition: var(--transition);
+  background: transparent;
+}
+
+.navbar-main.scrolled {
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 0.5rem 0;
+  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid var(--dark-border-gold);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.brand-icon {
+  font-size: 1.3rem;
+  color: var(--gold-primary);
+}
+
+.brand-text {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.navbar-main .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-collapse {
+  display: flex;
+  align-items: center;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-weight: 500;
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+  position: relative;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 60%;
+  height: 2px;
+  background: var(--gold-primary);
+  transition: transform 0.3s ease;
+  border-radius: 1px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--gold-primary) !important;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.btn-login {
+  border: 1.5px solid var(--gold-primary);
+  color: var(--gold-primary) !important;
+  padding: 0.4rem 1.2rem !important;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.btn-login:hover {
+  background: var(--gold-primary);
+  color: var(--black-base) !important;
+}
+
+.btn-login::after { display: none; }
+
+.dropdown-menu {
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--dark-border-gold);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.dropdown-item {
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: var(--transition);
+  font-size: 0.85rem;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-item:hover {
+  background: rgba(201, 162, 65, 0.1);
+  color: var(--gold-primary);
+}
+
+.dropdown-divider {
+  border-top: 1px solid var(--dark-border);
+  margin: 0.5rem 0;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 6px;
+  transition: var(--transition);
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+@media (max-width: 991.98px) {
+  .hamburger { display: flex; }
+
+  .nav-collapse {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: rgba(10, 10, 10, 0.99);
+    backdrop-filter: blur(20px);
+    padding: 5rem 1.5rem 2rem;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nav-collapse.open { right: 0; }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    display: block;
+    width: 100%;
+  }
+
+  .nav-link::after { display: none; }
+
+  .btn-login {
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  .dropdown-menu {
+    background: transparent;
+    border: none;
+    padding-left: 1rem;
+    margin-top: 0;
+  }
+}

@@ -1,1 +1,140 @@
-<p>lote-detalle works!</p>
+@if (loading) {
+  <div class="container py-5 text-center" style="padding-top:120px;">
+    <div class="spinner-border text-gold" style="width:3rem;height:3rem;" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+} @else if (error) {
+  <div class="container py-5 text-center" style="padding-top:120px;">
+    <i class="bi bi-exclamation-triangle display-1 text-muted mb-3 d-block"></i>
+    <h2 class="text-muted mt-3">{{ error }}</h2>
+    <a routerLink="/" class="btn-gold mt-3 d-inline-flex">Volver al inicio</a>
+  </div>
+} @else if (lote) {
+  <section class="detail-hero">
+    <div class="detail-hero-bg"></div>
+    <div class="detail-hero-gradient"></div>
+    <div class="container detail-hero-content">
+      <span class="hero-badge-detail" [class]="getEstadoClass()">
+        <i class="bi bi-circle-fill me-1" style="font-size:0.4rem;"></i>
+        {{ lote.estado }}
+      </span>
+      <h1 class="detail-hero-title">{{ lote.titulo }}</h1>
+      <div class="detail-hero-meta">
+        <span><i class="bi bi-grid-3x3-gap-fill"></i> Manzana {{ lote.manzana || 'N/A' }}</span>
+        <span><i class="bi bi-ui-checks"></i> Lote {{ lote.lote_num || 'N/A' }}</span>
+        <span><i class="bi bi-arrows-angle-expand"></i> {{ lote.superficie ? lote.superficie + ' m²' : 'N/A' }}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-padding-sm">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-7">
+          <div class="detail-card">
+            <div class="section-label">
+              <span class="section-line"></span>
+              Detalles
+            </div>
+            <h3 class="detail-card-title">Información de la Propiedad</h3>
+            <div class="detail-grid">
+              <div class="detail-grid-item">
+                <span class="detail-grid-label">Manzana</span>
+                <span class="detail-grid-value">{{ lote.manzana || 'N/A' }}</span>
+              </div>
+              <div class="detail-grid-item">
+                <span class="detail-grid-label">Lote N°</span>
+                <span class="detail-grid-value">{{ lote.lote_num || 'N/A' }}</span>
+              </div>
+              <div class="detail-grid-item">
+                <span class="detail-grid-label">Superficie</span>
+                <span class="detail-grid-value">{{ lote.superficie ? lote.superficie + ' m²' : 'N/A' }}</span>
+              </div>
+              <div class="detail-grid-item">
+                <span class="detail-grid-label">Precio</span>
+                <span class="detail-grid-value text-gold">Consultar</span>
+              </div>
+            </div>
+            @if (lote.descripcion) {
+              <div class="detail-description">
+                <h4>Descripción</h4>
+                <p>{{ lote.descripcion }}</p>
+              </div>
+            }
+          </div>
+
+          @if (lote.ubicacion) {
+            <div class="detail-card mt-4">
+              <div class="section-label">
+                <span class="section-line"></span>
+                Ubicación
+              </div>
+              <h3 class="detail-card-title">Ubicación del Terreno</h3>
+              <div class="detail-map">
+                <img src="assets/mapa.png" alt="Mapa">
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="col-lg-5">
+          <div class="detail-sidebar">
+            <div class="sidebar-card">
+              <i class="bi bi-chat-dots-fill" style="color:var(--gold-primary);font-size:1.5rem;display:block;margin-bottom:0.75rem;"></i>
+              <h3 class="sidebar-title">¿Te interesa?</h3>
+              <p class="sidebar-subtitle">Completá el formulario y te contactamos</p>
+
+              @if (successMsg) {
+                <div class="alert-custom alert-success-custom">
+                  <i class="bi bi-check-circle-fill"></i>
+                  {{ successMsg }}
+                </div>
+              }
+              @if (errorMsg) {
+                <div class="alert-custom alert-error-custom">
+                  <i class="bi bi-exclamation-circle-fill"></i>
+                  {{ errorMsg }}
+                </div>
+              }
+
+              <form (ngSubmit)="submitLead()" class="sidebar-form">
+                <div class="form-group">
+                  <input type="text" class="form-control-modern" placeholder="Nombre completo" [(ngModel)]="leadForm.nombre" name="nombre" required>
+                  @if (submitted && !leadForm.nombre) {
+                    <small class="text-danger">Campo requerido</small>
+                  }
+                </div>
+                <div class="form-group">
+                  <input type="tel" class="form-control-modern" placeholder="Teléfono" [(ngModel)]="leadForm.telefono" name="telefono" required>
+                  @if (submitted && !leadForm.telefono) {
+                    <small class="text-danger">Campo requerido</small>
+                  }
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control-modern" placeholder="Email" [(ngModel)]="leadForm.email" name="email" required>
+                  @if (submitted && !leadForm.email) {
+                    <small class="text-danger">Campo requerido</small>
+                  }
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control-modern" rows="3" placeholder="Mensaje (opcional)" [(ngModel)]="leadForm.mensaje" name="mensaje"></textarea>
+                </div>
+                <button type="submit" class="btn-gold w-100 justify-content-center">Enviar Solicitud</button>
+              </form>
+
+              <div class="sidebar-divider">
+                <span>o</span>
+              </div>
+
+              <button class="btn-wpp w-100 justify-content-center" (click)="openWpp()">
+                <i class="bi bi-whatsapp"></i>
+                Consultar por WhatsApp
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+}
