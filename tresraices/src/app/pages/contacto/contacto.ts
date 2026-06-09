@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { LoteService } from '../../core/services/lote';
 import { Lote } from '../../models/lote.models';
 
 @Component({
   selector: 'app-contacto',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './contacto.html',
   styleUrl: './contacto.css',
 })
@@ -21,6 +22,7 @@ export class Contacto implements OnInit {
     tipo: '',
     loteId: 0,
     mensaje: '',
+    consent: false,
   };
 
   errors = {
@@ -29,6 +31,7 @@ export class Contacto implements OnInit {
     email: '',
     tipo: '',
     loteId: '',
+    consent: '',
   };
 
   submitted = false;
@@ -52,7 +55,7 @@ export class Contacto implements OnInit {
 
   private validar(): boolean {
     let ok = true;
-    this.errors = { nombre: '', telefono: '', email: '', tipo: '', loteId: '' };
+    this.errors = { nombre: '', telefono: '', email: '', tipo: '', loteId: '', consent: '' };
 
     if (!this.form.nombre || this.form.nombre.trim().length < 3) {
       this.errors.nombre = this.form.nombre ? 'Mínimo 3 caracteres' : 'Requerido';
@@ -85,6 +88,11 @@ export class Contacto implements OnInit {
       ok = false;
     }
 
+    if (!this.form.consent) {
+      this.errors.consent = 'Debés aceptar la Política de Privacidad';
+      ok = false;
+    }
+
     return ok;
   }
 
@@ -114,8 +122,8 @@ export class Contacto implements OnInit {
     window.open(`https://wa.me/${this.whatsapp}?text=${msg}`, '_blank');
 
     this.sent = true;
-    this.form = { nombre: '', telefono: '', email: '', tipo: '', loteId: 0, mensaje: '' };
-    this.errors = { nombre: '', telefono: '', email: '', tipo: '', loteId: '' };
+    this.form = { nombre: '', telefono: '', email: '', tipo: '', loteId: 0, mensaje: '', consent: false };
+    this.errors = { nombre: '', telefono: '', email: '', tipo: '', loteId: '', consent: '' };
     this.submitted = false;
     this.sending = false;
   }

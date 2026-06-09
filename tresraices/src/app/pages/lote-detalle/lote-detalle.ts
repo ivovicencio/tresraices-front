@@ -22,10 +22,13 @@ export class LoteDetalle implements OnInit {
     telefono: '',
     email: '',
     mensaje: '',
+    consent: false,
   };
   submitted = false;
   successMsg = '';
   errorMsg = '';
+
+  private readonly emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   constructor(
     private route: ActivatedRoute,
@@ -58,8 +61,17 @@ export class LoteDetalle implements OnInit {
     this.submitted = true;
     this.errorMsg = '';
     this.successMsg = '';
-    const { nombre, telefono, email, mensaje } = this.leadForm;
-    if (!nombre || !telefono || !email) return;
+    const { nombre, telefono, email, mensaje, consent } = this.leadForm;
+
+    if (!nombre || !telefono || !email || !consent) {
+      if (!consent) this.errorMsg = 'Debés aceptar la Política de Privacidad';
+      return;
+    }
+
+    if (!this.emailRe.test(email.trim())) {
+      this.errorMsg = 'El email no tiene un formato válido';
+      return;
+    }
 
     this.leadService
       .createLead({ nombre, telefono, email, propiedad_id: this.lote.id, mensaje })
@@ -67,7 +79,7 @@ export class LoteDetalle implements OnInit {
         next: (res) => {
           if (res.status === '1') {
             this.successMsg = 'Solicitud enviada con éxito. Nos pondremos en contacto pronto.';
-            this.leadForm = { nombre: '', telefono: '', email: '', mensaje: '' };
+            this.leadForm = { nombre: '', telefono: '', email: '', mensaje: '', consent: false };
             this.submitted = false;
           } else {
             this.errorMsg = res.msg;

@@ -103,25 +103,31 @@
 
               <form (ngSubmit)="submitLead()" class="sidebar-form">
                 <div class="form-group">
-                  <input type="text" class="form-control-modern" placeholder="Nombre completo" [(ngModel)]="leadForm.nombre" name="nombre" required>
+                  <input type="text" class="form-control-modern" placeholder="Nombre completo" [(ngModel)]="leadForm.nombre" name="nombre">
                   @if (submitted && !leadForm.nombre) {
                     <small class="text-danger">Campo requerido</small>
                   }
                 </div>
                 <div class="form-group">
-                  <input type="tel" class="form-control-modern" placeholder="Teléfono" [(ngModel)]="leadForm.telefono" name="telefono" required>
+                  <input type="tel" class="form-control-modern" placeholder="Teléfono" [(ngModel)]="leadForm.telefono" name="telefono">
                   @if (submitted && !leadForm.telefono) {
                     <small class="text-danger">Campo requerido</small>
                   }
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control-modern" placeholder="Email" [(ngModel)]="leadForm.email" name="email" required>
+                  <input type="email" class="form-control-modern" placeholder="Email" [(ngModel)]="leadForm.email" name="email">
                   @if (submitted && !leadForm.email) {
                     <small class="text-danger">Campo requerido</small>
                   }
                 </div>
                 <div class="form-group">
                   <textarea class="form-control-modern" rows="3" placeholder="Mensaje (opcional)" [(ngModel)]="leadForm.mensaje" name="mensaje"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="consent-label">
+                    <input type="checkbox" [(ngModel)]="leadForm.consent" name="consent">
+                    <span>Acepto la <a routerLink="/privacidad" target="_blank" class="text-gold">Política de Privacidad</a>.</span>
+                  </label>
                 </div>
                 <button type="submit" class="btn-gold w-100 justify-content-center">Enviar Solicitud</button>
               </form>

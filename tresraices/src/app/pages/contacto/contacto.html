@@ -114,6 +114,17 @@
                   </div>
                 </div>
                 <div class="col-12">
+                  <div class="form-group">
+                    <label class="consent-label">
+                      <input type="checkbox" [(ngModel)]="form.consent" name="consent" [class.is-invalid]="submitted && errors.consent">
+                      <span>Acepto la <a routerLink="/privacidad" target="_blank">Política de Privacidad</a> y autorizo el tratamiento de mis datos personales conforme a la Ley 25.326.</span>
+                    </label>
+                    @if (submitted && errors.consent) {
+                      <small class="text-danger">{{ errors.consent }}</small>
+                    }
+                  </div>
+                </div>
+                <div class="col-12">
                   <button type="submit" class="btn-gold" [disabled]="sending">
                     @if (sending) {
                       Enviando...
