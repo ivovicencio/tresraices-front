@@ -15,6 +15,8 @@ export class Contacto {
     nombre: '',
     telefono: '',
     email: '',
+    tipo: '',
+    lote: '',
     mensaje: '',
   };
 
@@ -28,17 +30,23 @@ export class Contacto {
 
     this.sending = true;
 
-    const msg = encodeURIComponent(
-      `Hola, soy ${this.form.nombre}.\n` +
-      `Teléfono: ${this.form.telefono}\n` +
-      `Email: ${this.form.email}\n` +
-      (this.form.mensaje ? `Mensaje: ${this.form.mensaje}` : '')
-    );
+    const tipoTexto = this.form.tipo === 'lotes' ? 'Lotes' : this.form.tipo === 'construccion' ? 'Construcción' : '';
+
+    const parts = [
+      `Hola, soy ${this.form.nombre}.`,
+      `Teléfono: ${this.form.telefono}`,
+      `Email: ${this.form.email}`,
+    ];
+    if (tipoTexto) parts.push(`Consulta sobre: ${tipoTexto}`);
+    if (this.form.lote) parts.push(`Lote de interés: ${this.form.lote}`);
+    if (this.form.mensaje) parts.push(`Mensaje: ${this.form.mensaje}`);
+
+    const msg = encodeURIComponent(parts.join('\n'));
 
     window.open(`https://wa.me/${this.whatsapp}?text=${msg}`, '_blank');
 
     this.sent = true;
-    this.form = { nombre: '', telefono: '', email: '', mensaje: '' };
+    this.form = { nombre: '', telefono: '', email: '', tipo: '', lote: '', mensaje: '' };
     this.submitted = false;
     this.sending = false;
   }

@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   apiUrl: 'https://tresraices-api-production.up.railway.app',
-  whatsappNumber: '5493512345678',
+  whatsappNumber: '543884465970',
   emailjs: {
     serviceId: 'service_xxx',
     templateId: 'template_xxx',

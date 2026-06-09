@@ -73,8 +73,31 @@
                 </div>
                 <div class="col-12">
                   <div class="form-group">
+                    <label>¿Sobre qué querés consultar?</label>
+                    <div class="consulta-opciones">
+                      <button type="button" class="consulta-btn" [class.active]="form.tipo === 'lotes'" (click)="form.tipo = 'lotes'">
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Lotes</span>
+                      </button>
+                      <button type="button" class="consulta-btn" [class.active]="form.tipo === 'construccion'" (click)="form.tipo = 'construccion'">
+                        <i class="bi bi-building-fill"></i>
+                        <span>Construcción</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                @if (form.tipo === 'lotes') {
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="lote">Lote de interés</label>
+                      <input id="lote" type="text" placeholder="Ej: AP1-3, Sector AP2..." [(ngModel)]="form.lote" name="lote">
+                    </div>
+                  </div>
+                }
+                <div class="col-sm-6">
+                  <div class="form-group">
                     <label for="mensaje">Mensaje</label>
-                    <textarea id="mensaje" rows="5" placeholder="Contanos cómo podemos ayudarte..." [(ngModel)]="form.mensaje" name="mensaje"></textarea>
+                    <textarea id="mensaje" rows="3" placeholder="Contanos cómo podemos ayudarte..." [(ngModel)]="form.mensaje" name="mensaje"></textarea>
                   </div>
                 </div>
                 <div class="col-12">
