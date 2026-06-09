@@ -42,32 +42,32 @@
           }
 
           <div class="contact-form-card">
-            <form (ngSubmit)="onSubmit()" class="contact-form">
+            <form (ngSubmit)="onSubmit()" class="contact-form" novalidate>
               <div class="row g-3">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="nombre">Nombre completo</label>
-                    <input id="nombre" type="text" placeholder="Juan Pérez" [(ngModel)]="form.nombre" name="nombre" required>
-                    @if (submitted && !form.nombre) {
-                      <small class="text-danger">Requerido</small>
+                    <input id="nombre" type="text" placeholder="Juan Pérez" [(ngModel)]="form.nombre" name="nombre" [class.is-invalid]="submitted && errors.nombre">
+                    @if (submitted && errors.nombre) {
+                      <small class="text-danger">{{ errors.nombre }}</small>
                     }
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="telefono">Teléfono</label>
-                    <input id="telefono" type="tel" placeholder="388 4465 970" [(ngModel)]="form.telefono" name="telefono" required>
-                    @if (submitted && !form.telefono) {
-                      <small class="text-danger">Requerido</small>
+                    <input id="telefono" type="tel" placeholder="388 4465 970" [(ngModel)]="form.telefono" name="telefono" [class.is-invalid]="submitted && errors.telefono">
+                    @if (submitted && errors.telefono) {
+                      <small class="text-danger">{{ errors.telefono }}</small>
                     }
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" type="email" placeholder="tu@email.com" [(ngModel)]="form.email" name="email" required>
-                    @if (submitted && !form.email) {
-                      <small class="text-danger">Requerido</small>
+                    <input id="email" type="email" placeholder="tu@email.com" [(ngModel)]="form.email" name="email" [class.is-invalid]="submitted && errors.email">
+                    @if (submitted && errors.email) {
+                      <small class="text-danger">{{ errors.email }}</small>
                     }
                   </div>
                 </div>
@@ -75,22 +75,25 @@
                   <div class="form-group">
                     <label>¿Sobre qué querés consultar?</label>
                     <div class="consulta-opciones">
-                      <button type="button" class="consulta-btn" [class.active]="form.tipo === 'lotes'" (click)="form.tipo = 'lotes'">
+                      <button type="button" class="consulta-btn" [class.active]="form.tipo === 'lotes'" [class.is-invalid]="submitted && errors.tipo" (click)="form.tipo = 'lotes'">
                         <i class="bi bi-grid-fill"></i>
                         <span>Lotes</span>
                       </button>
-                      <button type="button" class="consulta-btn" [class.active]="form.tipo === 'construccion'" (click)="form.tipo = 'construccion'">
+                      <button type="button" class="consulta-btn" [class.active]="form.tipo === 'construccion'" [class.is-invalid]="submitted && errors.tipo" (click)="form.tipo = 'construccion'">
                         <i class="bi bi-building-fill"></i>
                         <span>Construcción</span>
                       </button>
                     </div>
+                    @if (submitted && errors.tipo) {
+                      <small class="text-danger">{{ errors.tipo }}</small>
+                    }
                   </div>
                 </div>
                 @if (form.tipo === 'lotes') {
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label for="lote">Seleccioná el lote</label>
-                      <select id="lote" [(ngModel)]="form.loteId" name="loteId">
+                      <select id="lote" [(ngModel)]="form.loteId" name="loteId" [class.is-invalid]="submitted && errors.loteId">
                         <option [ngValue]="0" disabled>Elegí un lote...</option>
                         @for (l of lotes; track l.id) {
                           <option [ngValue]="l.id">
@@ -98,6 +101,9 @@
                           </option>
                         }
                       </select>
+                      @if (submitted && errors.loteId) {
+                        <small class="text-danger">{{ errors.loteId }}</small>
+                      }
                     </div>
                   </div>
                 }
