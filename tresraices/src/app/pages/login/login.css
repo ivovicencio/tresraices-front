@@ -108,6 +108,37 @@
   letter-spacing: 0.5px;
 }
 
+.auth-field .is-invalid {
+  border-color: #e74c3c !important;
+}
+
+.auth-field .is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.12) !important;
+}
+
+.auth-field .text-danger {
+  font-size: 0.72rem;
+  color: #e74c3c !important;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.auth-field .text-danger::before {
+  content: '!';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #e74c3c;
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
 .auth-toggle {
   text-align: center;
   margin-top: 1.5rem;
