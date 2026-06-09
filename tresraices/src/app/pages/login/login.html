@@ -11,7 +11,7 @@
             </div>
             <h3>{{ isRegister ? 'Crear Cuenta' : 'Iniciar Sesión' }}</h3>
             <p class="auth-subtitle">
-              {{ isRegister ? 'Regístrate para gestionar propiedades' : 'Accede al panel de administración' }}
+              {{ isRegister ? 'Regístrate para recibir asesoramiento personalizado' : 'Accedé a tu cuenta' }}
             </p>
           </div>
 
@@ -19,6 +19,13 @@
             <div class="auth-alert">
               <i class="bi bi-exclamation-circle-fill"></i>
               {{ error }}
+            </div>
+          }
+
+          @if (success) {
+            <div class="auth-success">
+              <i class="bi bi-check-circle-fill"></i>
+              {{ success }}
             </div>
           }
 

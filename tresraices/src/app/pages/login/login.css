@@ -75,6 +75,19 @@
   margin: 0;
 }
 
+.auth-success {
+  padding: 0.75rem 1rem;
+  background: rgba(46, 204, 113, 0.06);
+  border: 1px solid rgba(46, 204, 113, 0.15);
+  border-radius: var(--radius-sm);
+  color: #2ecc71;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
 .auth-alert {
   padding: 0.75rem 1rem;
   background: rgba(231, 76, 60, 0.06);

@@ -7,9 +7,6 @@ import { Contacto } from './pages/contacto/contacto';
 import { Privacidad } from './pages/legal/privacidad/privacidad';
 import { Terminos } from './pages/legal/terminos/terminos';
 import { Page404 } from './pages/page-404/page-404';
-import { Lotes } from './pages/admin/lotes/lotes';
-import { Leads } from './pages/admin/leads/leads';
-import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
   { path: '', component: Landing },
@@ -19,14 +16,5 @@ export const routes: Routes = [
   { path: 'contacto', component: Contacto },
   { path: 'privacidad', component: Privacidad },
   { path: 'terminos', component: Terminos },
-  {
-    path: 'admin',
-    canActivate: [authGuard],
-    children: [
-      { path: 'lotes', component: Lotes },
-      { path: 'leads', component: Leads },
-      { path: '', redirectTo: 'lotes', pathMatch: 'full' },
-    ],
-  },
   { path: '**', component: Page404 },
 ];

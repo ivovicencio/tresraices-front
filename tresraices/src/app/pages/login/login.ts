@@ -13,6 +13,7 @@ export class Login {
   isRegister = false;
   loading = false;
   error = '';
+  success = '';
 
   loginData = { email: '', password: '' };
   loginErrors = { email: '', password: '' };
@@ -33,6 +34,7 @@ export class Login {
   toggleMode(): void {
     this.isRegister = !this.isRegister;
     this.error = '';
+    this.success = '';
     this.loginSubmitted = false;
     this.registerSubmitted = false;
   }
@@ -119,7 +121,7 @@ export class Login {
       next: (res) => {
         this.loading = false;
         if (res.status === '1') {
-          this.router.navigate(['/admin/lotes']);
+          this.router.navigate(['/']);
         } else {
           this.error = res.msg;
         }
@@ -137,11 +139,13 @@ export class Login {
 
     this.loading = true;
     this.error = '';
+    this.success = '';
     this.auth.register(this.registerData).subscribe({
       next: (res) => {
         this.loading = false;
         if (res.status === '1') {
-          this.router.navigate(['/admin/lotes']);
+          this.success = '¡Registro exitoso! Bienvenido a Tres Raíces.';
+          setTimeout(() => this.router.navigate(['/']), 1500);
         } else {
           this.error = res.msg;
         }

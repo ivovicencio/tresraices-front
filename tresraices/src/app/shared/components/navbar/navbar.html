@@ -24,23 +24,10 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/contacto" routerLinkActive="active" (click)="closeMobile()">Contacto</a>
         </li>
-        @if (auth.isLoggedIn()) {
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-gear-fill me-1"></i>Admin
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" routerLink="/admin/lotes" (click)="closeMobile()"><i class="bi bi-grid-fill me-2"></i>Gestionar Lotes</a></li>
-              <li><a class="dropdown-item" routerLink="/admin/leads" (click)="closeMobile()"><i class="bi bi-chat-dots-fill me-2"></i>Solicitudes</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><button class="dropdown-item" (click)="logout()"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</button></li>
-            </ul>
-          </li>
-        } @else {
-          <li class="nav-item">
-            <a class="nav-link btn-login" routerLink="/login" routerLinkActive="active" (click)="closeMobile()"><i class="bi bi-person-fill me-1"></i>Ingresar</a>
-          </li>
-        }
+
+        <li class="nav-item">
+          <a class="nav-link btn-login" routerLink="/login" routerLinkActive="active" (click)="closeMobile()"><i class="bi bi-person-fill me-1"></i>Ingresar</a>
+        </li>
       </ul>
     </div>
   </div>
