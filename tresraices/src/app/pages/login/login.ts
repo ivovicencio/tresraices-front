@@ -18,8 +18,8 @@ export class Login {
   loginErrors = { email: '', password: '' };
   loginSubmitted = false;
 
-  registerData = { nombre: '', telefono: '', email: '', password: '' };
-  registerErrors = { nombre: '', telefono: '', email: '', password: '' };
+  registerData = { username: '', nombre: '', apellido: '', telefono: '', email: '', password: '' };
+  registerErrors = { username: '', nombre: '', apellido: '', telefono: '', email: '', password: '' };
   registerSubmitted = false;
 
   private readonly emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -44,9 +44,6 @@ export class Login {
     if (!this.loginData.email) {
       this.loginErrors.email = 'Requerido';
       ok = false;
-    } else if (!this.emailRe.test(this.loginData.email.trim())) {
-      this.loginErrors.email = 'Email inválido';
-      ok = false;
     }
 
     if (!this.loginData.password) {
@@ -62,10 +59,23 @@ export class Login {
 
   private validarRegister(): boolean {
     let ok = true;
-    this.registerErrors = { nombre: '', telefono: '', email: '', password: '' };
+    this.registerErrors = { username: '', nombre: '', apellido: '', telefono: '', email: '', password: '' };
 
-    if (!this.registerData.nombre || this.registerData.nombre.trim().length < 3) {
-      this.registerErrors.nombre = this.registerData.nombre ? 'Mínimo 3 caracteres' : 'Requerido';
+    if (!this.registerData.username || this.registerData.username.trim().length < 3) {
+      this.registerErrors.username = this.registerData.username ? 'Mínimo 3 caracteres' : 'Requerido';
+      ok = false;
+    } else if (!/^[a-zA-Z0-9_]+$/.test(this.registerData.username)) {
+      this.registerErrors.username = 'Solo letras, números y _';
+      ok = false;
+    }
+
+    if (!this.registerData.nombre || this.registerData.nombre.trim().length < 2) {
+      this.registerErrors.nombre = this.registerData.nombre ? 'Mínimo 2 caracteres' : 'Requerido';
+      ok = false;
+    }
+
+    if (!this.registerData.apellido || this.registerData.apellido.trim().length < 2) {
+      this.registerErrors.apellido = this.registerData.apellido ? 'Mínimo 2 caracteres' : 'Requerido';
       ok = false;
     }
 

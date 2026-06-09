@@ -13,7 +13,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  register(data: { nombre: string; telefono: string; email: string; password: string }): Observable<ApiResponse<{ token: string }>> {
+  register(data: { username: string; nombre: string; apellido: string; telefono: string; email: string; password: string }): Observable<ApiResponse<{ token: string }>> {
     return this.http.post<ApiResponse<{ token: string }>>(`${this.apiUrl}/register`, data).pipe(
       tap((res) => {
         if (res.status === '1' && res.data?.token) {
