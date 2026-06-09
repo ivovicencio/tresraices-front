@@ -139,10 +139,40 @@
   overflow: hidden;
 }
 
+.detail-map {
+  position: relative;
+}
+
 .detail-map img {
   width: 100%;
   max-height: 300px;
   object-fit: cover;
+}
+
+.mapa-interactivo-link {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--white);
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  gap: 0.5rem;
+}
+
+.detail-map:hover .mapa-interactivo-link {
+  opacity: 1;
+}
+
+.mapa-interactivo-link:hover {
+  color: var(--gold-primary);
 }
 
 .detail-sidebar {

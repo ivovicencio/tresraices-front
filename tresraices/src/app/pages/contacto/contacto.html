@@ -43,7 +43,7 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label>Teléfono</label>
-                <input type="tel" class="form-control-modern" placeholder="3512345678" [(ngModel)]="form.telefono" name="telefono" required>
+                <input type="tel" class="form-control-modern" placeholder="3884465970" [(ngModel)]="form.telefono" name="telefono" required>
                 @if (submitted && !form.telefono) {
                   <small class="text-danger">Requerido</small>
                 }
@@ -65,7 +65,7 @@
               </div>
             </div>
             <div class="col-12">
-              <button type="submit" class="btn-gold">Enviar mensaje <i class="bi bi-arrow-right"></i></button>
+              <button type="submit" class="btn-gold" [disabled]="sending">Enviar mensaje <i class="bi bi-arrow-right"></i></button>
             </div>
           </div>
         </form>
@@ -73,45 +73,24 @@
 
       <div class="col-lg-5 offset-lg-1">
         <div class="contact-info-card">
-          <div class="contact-info-image">
-            <img src="assets/centro-hero.png" alt="Oficina">
-            <div class="contact-info-overlay">
-              <span>Nuestra oficina</span>
-            </div>
-          </div>
-
           <div class="contact-info-items">
-            <div class="contact-info-item">
-              <i class="bi bi-geo-alt-fill ci-icon"></i>
-              <div>
-                <strong>Dirección</strong>
-                <p>Av. Principal 123, Córdoba</p>
-              </div>
-            </div>
             <div class="contact-info-item">
               <i class="bi bi-telephone-fill ci-icon"></i>
               <div>
                 <strong>Teléfono</strong>
-                <p>+54 9 351 234-5678</p>
+                <p>388 4465 970</p>
               </div>
             </div>
             <div class="contact-info-item">
               <i class="bi bi-envelope-fill ci-icon"></i>
               <div>
                 <strong>Email</strong>
-                <p>info&#64;tresraices.com</p>
-              </div>
-            </div>
-            <div class="contact-info-item">
-              <i class="bi bi-clock-fill ci-icon"></i>
-              <div>
-                <strong>Horarios</strong>
-                <p>Lun - Vie: 9:00 - 18:00 / Sáb: 9:00 - 13:00</p>
+                <p>tresraices.87&#64;gmail.com</p>
               </div>
             </div>
           </div>
 
-          <a href="https://wa.me/5493512345678" target="_blank" rel="noopener noreferrer" class="btn-wpp w-100 d-inline-flex justify-content-center" style="text-decoration:none;border-radius:0 0 var(--radius-xl) var(--radius-xl);padding:1rem;">
+          <a href="https://wa.me/{{ whatsapp }}" target="_blank" rel="noopener noreferrer" class="btn-wpp w-100 d-inline-flex justify-content-center" style="text-decoration:none;border-radius:0 0 var(--radius-xl) var(--radius-xl);padding:1rem;">
             <i class="bi bi-whatsapp"></i>
             Consultar por WhatsApp
           </a>

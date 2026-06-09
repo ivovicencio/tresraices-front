@@ -12,4 +12,5 @@ export interface Lote {
   created_at: string;
   inmobiliaria_nombre?: string;
   inmobiliaria_direccion?: string;
+  points?: string | null;
 }

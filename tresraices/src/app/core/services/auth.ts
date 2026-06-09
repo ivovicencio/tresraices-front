@@ -9,7 +9,7 @@ export class AuthService {
   private readonly apiUrl = `${environment.apiUrl}/api/auth`;
   private readonly tokenKey = 'tresraices_token';
 
-  isLoggedIn = signal(!!this.getToken());
+  isLoggedIn = signal(this.hasValidToken());
 
   constructor(private http: HttpClient) {}
 
@@ -40,6 +40,18 @@ export class AuthService {
 
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
+  }
+
+  private hasValidToken(): boolean {
+    const token = this.getToken();
+    if (!token) return false;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.exp * 1000 > Date.now();
+    } catch {
+      this.logout();
+      return false;
+    }
   }
 
   private saveToken(token: string): void {

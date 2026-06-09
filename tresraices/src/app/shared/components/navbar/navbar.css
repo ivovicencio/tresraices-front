@@ -26,9 +26,10 @@
   cursor: pointer;
 }
 
-.brand-icon {
-  font-size: 1.3rem;
-  color: var(--gold-primary);
+.brand-logo {
+  height: 140px;
+  width: auto;
+  border-radius: 8px;
 }
 
 .brand-text {

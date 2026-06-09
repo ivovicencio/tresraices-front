@@ -1,8 +1,7 @@
 <nav class="navbar-main" [class.scrolled]="scrolled">
   <div class="container">
     <a class="navbar-brand" routerLink="/" (click)="closeMobile()">
-      <i class="bi bi-diamond-fill brand-icon"></i>
-      <span class="brand-text">Tres <span class="text-gold">Raíces</span></span>
+      <img src="assets/logo-tresraices.png" alt="Tres Raíces" class="brand-logo">
     </a>
 
     <button
@@ -21,9 +20,7 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="closeMobile()">Inicio</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/" fragment="propiedades" (click)="closeMobile()">Propiedades</a>
-        </li>
+
         <li class="nav-item">
           <a class="nav-link" routerLink="/contacto" routerLinkActive="active" (click)="closeMobile()">Contacto</a>
         </li>

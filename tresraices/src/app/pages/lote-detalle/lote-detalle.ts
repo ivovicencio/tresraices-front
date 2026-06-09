@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { LoteService } from '../../core/services/lote';
 import { LeadService } from '../../core/services/lead';
 import { Lote } from '../../models/lote.models';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-lote-detalle',
@@ -91,6 +92,6 @@ export class LoteDetalle implements OnInit {
   openWpp(): void {
     if (!this.lote) return;
     const msg = `Hola! Me interesa el lote: ${this.lote.titulo}`;
-    window.open(`https://wa.me/5493512345678?text=${encodeURIComponent(msg)}`, '_blank');
+    window.open(`https://wa.me/${environment.whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
   }
 }

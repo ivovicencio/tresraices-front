@@ -98,8 +98,8 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-2px);
 }
 
-.section-padding { padding: 6rem 0; }
-.section-padding-sm { padding: 4rem 0; }
+.section-padding { padding: 8rem 0; }
+.section-padding-sm { padding: 5rem 0; }
 
 .section-label {
   color: var(--gold-primary);
@@ -200,6 +200,6 @@ h1, h2, h3, h4, h5, h6 {
 a { text-decoration: none; color: inherit; }
 
 @media (max-width: 768px) {
-  .section-padding { padding: 4rem 0; }
+  .section-padding { padding: 5rem 0; }
   .section-title { font-size: 2rem; }
 }
