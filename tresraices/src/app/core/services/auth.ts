@@ -42,6 +42,16 @@ export class AuthService {
     return localStorage.getItem(this.tokenKey);
   }
 
+  getUser(): { id: number; username: string } | null {
+    const token = this.getToken();
+    if (!token) return null;
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch {
+      return null;
+    }
+  }
+
   private hasValidToken(): boolean {
     const token = this.getToken();
     if (!token) return false;
