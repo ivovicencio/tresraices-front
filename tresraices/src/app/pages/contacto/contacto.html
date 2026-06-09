@@ -1,1 +1,178 @@
-<p>contacto works!</p>
+<section class="contact-hero">
+  <div class="contact-hero-bg"></div>
+  <div class="contact-hero-gradient"></div>
+  <div class="contact-hero-particles">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div class="container contact-hero-content">
+    <div class="contact-hero-badge">Contacto</div>
+    <h1 class="contact-hero-title">Estamos para <span>ayudarte</span></h1>
+    <p class="contact-hero-subtitle">Encontrá el terreno perfecto para tu próximo proyecto</p>
+    <div class="contact-divider">
+      <span class="contact-divider-line"></span>
+      <i class="bi bi-diamond-fill contact-divider-icon"></i>
+      <span class="contact-divider-line"></span>
+    </div>
+  </div>
+</section>
+
+<section class="contact-main">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-6">
+        <div class="contact-form-wrapper">
+          <div class="contact-form-header">
+            <div class="section-label">
+              <span class="section-line"></span>
+              Escribinos
+            </div>
+            <h2 class="section-title">Hablemos de tu <span class="text-gold">proyecto</span></h2>
+            <p class="section-subtitle mb-4">Completá el formulario y te responderemos a la brevedad</p>
+          </div>
+
+          @if (sent) {
+            <div class="contact-success">
+              <i class="bi bi-check-circle-fill success-icon"></i>
+              <div>
+                <strong>¡Mensaje enviado!</strong>
+                <p>Gracias por contactarnos. Te vamos a responder a la brevedad.</p>
+              </div>
+            </div>
+          }
+
+          <div class="contact-form-card">
+            <form (ngSubmit)="onSubmit()" class="contact-form" novalidate>
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="nombre">Nombre completo</label>
+                    <input id="nombre" type="text" placeholder="Juan Pérez" [(ngModel)]="form.nombre" name="nombre" [class.is-invalid]="submitted && errors.nombre">
+                    @if (submitted && errors.nombre) {
+                      <small class="text-danger">{{ errors.nombre }}</small>
+                    }
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input id="telefono" type="tel" placeholder="388 4465 970" [(ngModel)]="form.telefono" name="telefono" [class.is-invalid]="submitted && errors.telefono">
+                    @if (submitted && errors.telefono) {
+                      <small class="text-danger">{{ errors.telefono }}</small>
+                    }
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" placeholder="tu@email.com" [(ngModel)]="form.email" name="email" [class.is-invalid]="submitted && errors.email">
+                    @if (submitted && errors.email) {
+                      <small class="text-danger">{{ errors.email }}</small>
+                    }
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group">
+                    <label>¿Sobre qué querés consultar?</label>
+                    <div class="consulta-opciones">
+                      <button type="button" class="consulta-btn" [class.active]="form.tipo === 'lotes'" [class.is-invalid]="submitted && errors.tipo" (click)="form.tipo = 'lotes'">
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Lotes</span>
+                      </button>
+                      <button type="button" class="consulta-btn" [class.active]="form.tipo === 'construccion'" [class.is-invalid]="submitted && errors.tipo" (click)="form.tipo = 'construccion'">
+                        <i class="bi bi-building-fill"></i>
+                        <span>Construcción</span>
+                      </button>
+                    </div>
+                    @if (submitted && errors.tipo) {
+                      <small class="text-danger">{{ errors.tipo }}</small>
+                    }
+                  </div>
+                </div>
+                @if (form.tipo === 'lotes') {
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="lote">Seleccioná el lote</label>
+                      <select id="lote" [(ngModel)]="form.loteId" name="loteId" [class.is-invalid]="submitted && errors.loteId">
+                        <option [ngValue]="0" disabled>Elegí un lote...</option>
+                        @for (l of lotes; track l.id) {
+                          <option [ngValue]="l.id">
+                            {{ l.titulo }} @if (l.estado !== 'Disponible') {[{{ l.estado }}]}
+                          </option>
+                        }
+                      </select>
+                      @if (submitted && errors.loteId) {
+                        <small class="text-danger">{{ errors.loteId }}</small>
+                      }
+                    </div>
+                  </div>
+                }
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" rows="3" placeholder="Contanos cómo podemos ayudarte..." [(ngModel)]="form.mensaje" name="mensaje"></textarea>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group">
+                    <label class="consent-label">
+                      <input type="checkbox" [(ngModel)]="form.consent" name="consent" [class.is-invalid]="submitted && errors.consent">
+                      <span>Acepto la <a routerLink="/privacidad" target="_blank">Política de Privacidad</a> y autorizo el tratamiento de mis datos personales conforme a la Ley 25.326.</span>
+                    </label>
+                    @if (submitted && errors.consent) {
+                      <small class="text-danger">{{ errors.consent }}</small>
+                    }
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn-gold" [disabled]="sending">
+                    @if (sending) {
+                      Enviando...
+                    } @else {
+                      Enviar mensaje <i class="bi bi-arrow-right"></i>
+                    }
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5 offset-lg-1">
+        <div class="contact-info-card">
+          <div class="contact-info-image">
+            <img src="assets/agenteinmobiliariavendiendo.png" alt="Contacto">
+            <div class="contact-info-overlay">
+              Tres Raíces
+              <small>Inmobiliaria & Construcciones</small>
+            </div>
+          </div>
+          <div class="contact-info-items">
+            <div class="contact-info-item">
+              <i class="bi bi-telephone-fill ci-icon"></i>
+              <div>
+                <strong>Teléfono</strong>
+                <p>388 4465 970</p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <i class="bi bi-envelope-fill ci-icon"></i>
+              <div>
+                <strong>Email</strong>
+                <p>tresraices.87&#64;gmail.com</p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <i class="bi bi-geo-alt-fill ci-icon"></i>
+              <div>
+                <strong>Ubicación</strong>
+                <p>Jujuy, Argentina</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

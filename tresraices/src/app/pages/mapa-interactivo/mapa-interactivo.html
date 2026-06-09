@@ -1,0 +1,103 @@
+<section class="lotes-section">
+  <div class="container">
+    @if (!hideHeader) {
+      <div class="lotes-header">
+        <div class="section-label">
+          <span class="section-line"></span>
+          Lotes
+        </div>
+        <h2 class="lotes-title">Lotes en Venta <span class="text-gold">Tres Raíces</span></h2>
+        <p class="lotes-subtitle">Conocé todos los lotes disponibles agrupados por sector</p>
+      </div>
+    }
+
+    <div class="plano-reference">
+      <img src="assets/mapa.png" alt="Plano del loteo Tres Raíces" class="plano-img" draggable="false">
+      <span class="plano-caption">Plano del loteo — referencia general</span>
+    </div>
+
+    @if (lotesPorSector().length === 0) {
+      <div class="lotes-empty">
+        <p>Cargando lotes...</p>
+      </div>
+    }
+
+    @if (sectores().length > 0) {
+      <div class="sector-tabs">
+        @for (s of sectores(); track s) {
+          <button class="sector-tab" [class.active]="selectedSector() === s" (click)="seleccionarSector(s)">
+            {{ s }}
+          </button>
+        }
+      </div>
+    }
+
+    @for (grupo of lotesFiltrados(); track grupo.sector) {
+      <div class="sector-group">
+        <div class="lotes-grid">
+          @for (lote of grupo.lotes; track lote.id) {
+            <div class="lote-card" [class.border-available]="lote.estado === 'Disponible'" [class.border-reserved]="lote.estado === 'Reservado'" [class.border-sold]="lote.estado === 'Vendido'" (click)="openModal(lote)">
+              <div class="lote-card-status" [class.stat-available]="lote.estado === 'Disponible'" [class.stat-reserved]="lote.estado === 'Reservado'" [class.stat-sold]="lote.estado === 'Vendido'">
+                <i class="bi bi-circle-fill"></i>
+                {{ lote.estado }}
+              </div>
+              <div class="lote-card-num">{{ lote.lote_num }}</div>
+              <div class="lote-card-sup">{{ lote.superficie }} m²</div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</section>
+
+@if (selectedLote(); as lote) {
+  <div class="modal-backdrop" (click)="closeModal()"></div>
+  <div class="modal-custom" role="dialog" aria-modal="true">
+    <div class="modal-custom-dialog">
+      <div class="modal-custom-content">
+        <div class="modal-custom-header">
+          <div>
+            <span class="modal-badge" [class.badge-available]="lote.estado === 'Disponible'"
+                  [class.badge-reserved]="lote.estado === 'Reservado'"
+                  [class.badge-sold]="lote.estado === 'Vendido'">
+              <i class="bi bi-circle-fill me-1" style="font-size:0.4rem;"></i>
+              {{ lote.estado }}
+            </span>
+            <h3 class="modal-title">Lote {{ lote.lote_num }} — {{ lote.sector }}</h3>
+          </div>
+          <button type="button" class="modal-close" (click)="closeModal()">&times;</button>
+        </div>
+        <div class="modal-custom-body">
+          <div class="modal-info-grid">
+            <div class="modal-info-item">
+              <span class="modal-info-label">Lote</span>
+              <span class="modal-info-value">{{ lote.lote_num }}</span>
+            </div>
+            <div class="modal-info-item">
+              <span class="modal-info-label">Sector</span>
+              <span class="modal-info-value">{{ lote.sector }}</span>
+            </div>
+            <div class="modal-info-item">
+              <span class="modal-info-label">Superficie</span>
+              <span class="modal-info-value">{{ lote.superficie }} m²</span>
+            </div>
+            <div class="modal-info-item modal-info-full">
+              <span class="modal-info-label">Medidas Perimetrales</span>
+              <span class="modal-info-value medidas-value">{{ lote.medidas_perimetrales }}</span>
+            </div>
+          </div>
+          @if (lote.descripcion) {
+            <p class="modal-desc">{{ lote.descripcion }}</p>
+          }
+        </div>
+        <div class="modal-custom-footer">
+          <button class="btn-gold" (click)="consultarLote(lote)">
+            <i class="bi bi-whatsapp"></i> Consultar
+          </button>
+          <button class="btn-outline-gold" (click)="closeModal()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

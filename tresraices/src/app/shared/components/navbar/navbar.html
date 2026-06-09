@@ -1,1 +1,47 @@
-<p>navbar works!</p>
+<nav class="navbar-main" [class.scrolled]="scrolled">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/" (click)="closeMobile()">
+      <img src="assets/logo-tresraices.png" alt="Tres Raíces" class="brand-logo">
+    </a>
+
+    <button
+      class="hamburger"
+      [class.active]="mobileOpen"
+      (click)="mobileOpen = !mobileOpen"
+      aria-label="Toggle menu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="nav-collapse" [class.open]="mobileOpen">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="closeMobile()">Inicio</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contacto" routerLinkActive="active" (click)="closeMobile()">Contacto</a>
+        </li>
+
+        @if (auth.isLoggedIn()) {
+          <li class="nav-item user-menu" [class.show]="dropdownOpen">
+            <a class="nav-link" (click)="toggleDropdown($event)" role="button">
+              <i class="bi bi-person-fill me-1"></i>{{ auth.getUser()?.username }} <i class="bi bi-chevron-down"></i>
+            </a>
+            @if (dropdownOpen) {
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" (click)="logout()">Cerrar sesión</a></li>
+              </ul>
+            }
+          </li>
+        } @else {
+          <li class="nav-item">
+            <a class="nav-link btn-login" routerLink="/login" routerLinkActive="active" (click)="closeMobile()"><i class="bi bi-person-fill me-1"></i>Ingresar</a>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</nav>

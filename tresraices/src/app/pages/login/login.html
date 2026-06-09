@@ -1,1 +1,127 @@
-<p>login works!</p>
+<section class="auth-section">
+  <div class="auth-bg"></div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="auth-card">
+          <div class="auth-header">
+            <div class="auth-logo">
+              <i class="bi bi-diamond-fill auth-logo-icon"></i>
+              <span class="auth-logo-text">Tres <span class="text-gold">Raíces</span></span>
+            </div>
+            <h3>{{ isRegister ? 'Crear Cuenta' : 'Iniciar Sesión' }}</h3>
+            <p class="auth-subtitle">
+              {{ isRegister ? 'Regístrate para recibir asesoramiento personalizado' : 'Accedé a tu cuenta' }}
+            </p>
+          </div>
+
+          @if (error) {
+            <div class="auth-alert">
+              <i class="bi bi-exclamation-circle-fill"></i>
+              {{ error }}
+            </div>
+          }
+
+          @if (success) {
+            <div class="auth-success">
+              <i class="bi bi-check-circle-fill"></i>
+              {{ success }}
+            </div>
+          }
+
+          @if (!isRegister) {
+            <form (ngSubmit)="onLogin()" class="auth-form" novalidate>
+              <div class="auth-field">
+                <label>Usuario o Email</label>
+                <input type="text" class="form-control-modern" [(ngModel)]="loginData.email" name="email" placeholder="usuario o tu@email.com" [class.is-invalid]="loginSubmitted && loginErrors.email">
+                @if (loginSubmitted && loginErrors.email) {
+                  <small class="text-danger">{{ loginErrors.email }}</small>
+                }
+              </div>
+              <div class="auth-field">
+                <label>Contraseña</label>
+                <input type="password" class="form-control-modern" [(ngModel)]="loginData.password" name="password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" [class.is-invalid]="loginSubmitted && loginErrors.password">
+                @if (loginSubmitted && loginErrors.password) {
+                  <small class="text-danger">{{ loginErrors.password }}</small>
+                }
+              </div>
+              <button type="submit" class="btn-gold w-100 justify-content-center" [disabled]="loading">
+                @if (loading) {
+                  <span class="spinner-border spinner-border-sm me-1"></span>
+                }
+                Ingresar
+              </button>
+            </form>
+          } @else {
+            <form (ngSubmit)="onRegister()" class="auth-form" novalidate>
+              <div class="auth-field">
+                <label>Nombre de usuario</label>
+                <input type="text" class="form-control-modern" [(ngModel)]="registerData.username" name="username" placeholder="mi_usuario" [class.is-invalid]="registerSubmitted && registerErrors.username">
+                @if (registerSubmitted && registerErrors.username) {
+                  <small class="text-danger">{{ registerErrors.username }}</small>
+                }
+              </div>
+              <div class="row g-2">
+                <div class="col-6">
+                  <div class="auth-field">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control-modern" [(ngModel)]="registerData.nombre" name="nombre" placeholder="Juan" [class.is-invalid]="registerSubmitted && registerErrors.nombre">
+                    @if (registerSubmitted && registerErrors.nombre) {
+                      <small class="text-danger">{{ registerErrors.nombre }}</small>
+                    }
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="auth-field">
+                    <label>Apellido</label>
+                    <input type="text" class="form-control-modern" [(ngModel)]="registerData.apellido" name="apellido" placeholder="Pérez" [class.is-invalid]="registerSubmitted && registerErrors.apellido">
+                    @if (registerSubmitted && registerErrors.apellido) {
+                      <small class="text-danger">{{ registerErrors.apellido }}</small>
+                    }
+                  </div>
+                </div>
+              </div>
+              <div class="auth-field">
+                <label>Teléfono</label>
+                <input type="tel" class="form-control-modern" [(ngModel)]="registerData.telefono" name="telefono" placeholder="3884465970" [class.is-invalid]="registerSubmitted && registerErrors.telefono">
+                @if (registerSubmitted && registerErrors.telefono) {
+                  <small class="text-danger">{{ registerErrors.telefono }}</small>
+                }
+              </div>
+              <div class="auth-field">
+                <label>Email</label>
+                <input type="email" class="form-control-modern" [(ngModel)]="registerData.email" name="email" placeholder="tu@email.com" [class.is-invalid]="registerSubmitted && registerErrors.email">
+                @if (registerSubmitted && registerErrors.email) {
+                  <small class="text-danger">{{ registerErrors.email }}</small>
+                }
+              </div>
+              <div class="auth-field">
+                <label>Contraseña</label>
+                <input type="password" class="form-control-modern" [(ngModel)]="registerData.password" name="password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" [class.is-invalid]="registerSubmitted && registerErrors.password">
+                @if (registerSubmitted && registerErrors.password) {
+                  <small class="text-danger">{{ registerErrors.password }}</small>
+                }
+              </div>
+              <button type="submit" class="btn-gold w-100 justify-content-center" [disabled]="loading">
+                @if (loading) {
+                  <span class="spinner-border spinner-border-sm me-1"></span>
+                }
+                Registrarse
+              </button>
+            </form>
+          }
+
+          <div class="auth-toggle">
+            <button class="auth-toggle-btn" (click)="toggleMode()">
+              {{ isRegister ? '¿Ya tenés cuenta? Ingresá' : '¿No tenés cuenta? Registrate' }}
+            </button>
+          </div>
+
+          <div class="auth-back">
+            <a routerLink="/"><i class="bi bi-arrow-left me-1"></i>Volver al inicio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
