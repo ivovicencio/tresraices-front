@@ -28,6 +28,7 @@
     </p>
 
     <div class="hero-actions">
+      <a routerLink="/contacto" class="btn-gold">Contactanos <i class="bi bi-whatsapp ms-2"></i></a>
     </div>
 
     <div class="hero-scroll">
@@ -55,7 +56,7 @@
         </div>
         <h2 class="section-title">Comprometidos con tu <span class="text-gold">futuro</span></h2>
         <p class="about-mission">
-          En Tres Raíces transformamos terrenos en comunidades vibrantes.
+          En Tres Raíces transformamos terrenos en comunidades vibrantes en Jujuy.
           Creemos en la atención cercana, los procesos transparentes y el compromiso real con cada proyecto.
           Cada loteo y construcción es una oportunidad para crear espacios donde los sueños se construyen.
         </p>
@@ -158,16 +159,72 @@
   </div>
 </section>
 
+<!-- NUEVO LOTEO: TIERRA DE CERROS Y DE VEGAS -->
+<section data-section="cerros" class="loteo-hero">
+  <div class="loteo-bg"></div>
+  <div class="loteo-overlay"></div>
+  <div class="container loteo-content">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="loteo-badge">Nuevo Loteo</div>
+        <h2 class="loteo-title">
+          Tierra de <span class="text-gold">Cerros</span><br>
+          y de <span class="text-gold">Vegas</span>
+        </h2>
+        <p class="loteo-location">
+          <i class="bi bi-geo-alt-fill"></i> Lozano, Jujuy
+        </p>
+        <p class="loteo-desc">
+          Un nuevo desarrollo con lotes planificados en un entorno natural único.
+          Rodeado de cerros y vegas, es el lugar ideal para construir tu hogar
+          en contacto con la naturaleza, a minutos de San Salvador de Jujuy.
+        </p>
+        <div class="loteo-features">
+          <div class="loteo-feature">
+            <i class="bi bi-check-lg"></i>
+            <span>Lotes con servicios</span>
+          </div>
+          <div class="loteo-feature">
+            <i class="bi bi-check-lg"></i>
+            <span>Entorno natural privilegiado</span>
+          </div>
+          <div class="loteo-feature">
+            <i class="bi bi-check-lg"></i>
+            <span>Acceso directo</span>
+          </div>
+          <div class="loteo-feature">
+            <i class="bi bi-check-lg"></i>
+            <span>Excelente inversión</span>
+          </div>
+        </div>
+        <div class="d-flex flex-wrap gap-3 mt-4">
+          <a routerLink="/contacto" class="btn-gold">Consultar disponibilidad <i class="bi bi-arrow-right ms-2"></i></a>
+          <a routerLink="/mapa-interactivo" class="btn-outline-gold">Ver en el mapa <i class="bi bi-map ms-2"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="loteo-image-wrapper">
+          <img src="assets/posible-hero2.png" alt="Tierra de Cerros y de Vegas" class="loteo-image">
+          <div class="loteo-image-badge">
+            <i class="bi bi-diamond-fill"></i>
+            <span>Lozano, Jujuy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- LOTES -->
 <section data-section="lotes" class="section-padding">
   <div class="container">
     <div class="text-center mb-5">
       <div class="section-label justify-content-center">
         <span class="section-line"></span>
-        Mapa del Loteo
+        Tierra de Cerros y de Vegas
       </div>
       <h2 class="section-title">Plano del Loteo <span class="text-gold">Tres Raíces</span></h2>
-      <p class="section-subtitle mx-auto">Explorá nuestros lotes disponibles. Hacé clic sobre cualquier lote para ver su información.</p>
+      <p class="section-subtitle mx-auto">Descubrí los lotes disponibles en nuestro nuevo desarrollo en Lozano, Jujuy. Hacé clic sobre cualquier lote para ver su información.</p>
     </div>
     <app-mapa-interactivo [hideHeader]="true"></app-mapa-interactivo>
   </div>

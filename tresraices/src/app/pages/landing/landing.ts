@@ -65,6 +65,19 @@ export class Landing implements AfterViewInit {
         threshold: 0.15,
       },
       {
+        dataSection: 'cerros',
+        items: [
+          { sel: '.loteo-badge', delay: 0 },
+          { sel: '.loteo-title', delay: 150 },
+          { sel: '.loteo-location', delay: 280 },
+          { sel: '.loteo-desc', delay: 380 },
+          { sel: '.loteo-feature', delay: 500, staggerDelay: 100 },
+          { sel: '.loteo-image-wrapper', delay: 0 },
+          { sel: '.btn-gold', delay: 650 },
+          { sel: '.btn-outline-gold', delay: 700 },
+        ],
+      },
+      {
         dataSection: 'lotes',
         items: [
           { sel: '.section-label', delay: 0 },
