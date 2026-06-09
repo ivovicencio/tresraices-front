@@ -199,7 +199,7 @@
         </div>
         <div class="d-flex flex-wrap gap-3 mt-4">
           <a routerLink="/contacto" class="btn-gold">Consultar disponibilidad <i class="bi bi-arrow-right ms-2"></i></a>
-          <a routerLink="/mapa-interactivo" class="btn-outline-gold">Ver en el mapa <i class="bi bi-map ms-2"></i></a>
+          <a (click)="scrollToMapa($event)" class="btn-outline-gold" style="cursor:pointer;">Ver en el mapa <i class="bi bi-map ms-2"></i></a>
         </div>
       </div>
       <div class="col-lg-6">
@@ -216,7 +216,7 @@
 </section>
 
 <!-- LOTES -->
-<section data-section="lotes" class="section-padding">
+<section id="lotes-mapa" data-section="lotes" class="section-padding">
   <div class="container">
     <div class="text-center mb-5">
       <div class="section-label justify-content-center">

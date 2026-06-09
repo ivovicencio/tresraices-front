@@ -162,6 +162,12 @@ export class Landing implements AfterViewInit {
     });
   }
 
+  scrollToMapa(event: Event) {
+    event.preventDefault();
+    const el = document.querySelector('#lotes-mapa');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   private animateWhatsapp() {
     animate('.whatsapp-float', {
       scale: [1, 1.08, 1],
