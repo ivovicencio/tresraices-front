@@ -15,9 +15,9 @@ export class AuthService {
 
   register(data: { username: string; nombre: string; apellido: string; telefono: string; email: string; password: string }): Observable<ApiResponse<{ token: string }>> {
     return this.http.post<ApiResponse<{ token: string }>>(`${this.apiUrl}/register`, data).pipe(
-      tap((res) => {
-        if (res.status === '1' && res.data?.token) {
-          this.saveToken(res.data.token);
+      tap((res: any) => {
+        if (res.status === '1' && res.token) {
+          this.saveToken(res.token);
         }
       })
     );
@@ -25,9 +25,9 @@ export class AuthService {
 
   login(data: { email: string; password: string }): Observable<ApiResponse<{ token: string }>> {
     return this.http.post<ApiResponse<{ token: string }>>(`${this.apiUrl}/login`, data).pipe(
-      tap((res) => {
-        if (res.status === '1' && res.data?.token) {
-          this.saveToken(res.data.token);
+      tap((res: any) => {
+        if (res.status === '1' && res.token) {
+          this.saveToken(res.token);
         }
       })
     );
