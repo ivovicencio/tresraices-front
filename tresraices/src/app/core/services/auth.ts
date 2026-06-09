@@ -34,12 +34,12 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem(this.tokenKey);
+    sessionStorage.removeItem(this.tokenKey);
     this.isLoggedIn.set(false);
   }
 
   getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    return sessionStorage.getItem(this.tokenKey);
   }
 
   getUser(): { id: number; username: string } | null {
@@ -65,7 +65,7 @@ export class AuthService {
   }
 
   private saveToken(token: string): void {
-    localStorage.setItem(this.tokenKey, token);
+    sessionStorage.setItem(this.tokenKey, token);
     this.isLoggedIn.set(true);
   }
 }

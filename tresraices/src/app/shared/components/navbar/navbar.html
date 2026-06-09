@@ -26,13 +26,15 @@
         </li>
 
         @if (auth.isLoggedIn()) {
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-              <i class="bi bi-person-fill me-1"></i>{{ auth.getUser()?.username }}
+          <li class="nav-item user-menu" [class.show]="dropdownOpen">
+            <a class="nav-link" (click)="toggleDropdown($event)" role="button">
+              <i class="bi bi-person-fill me-1"></i>{{ auth.getUser()?.username }} <i class="bi bi-chevron-down"></i>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" (click)="logout()" style="cursor:pointer;">Cerrar sesión</a></li>
-            </ul>
+            @if (dropdownOpen) {
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" (click)="logout()">Cerrar sesión</a></li>
+              </ul>
+            }
           </li>
         } @else {
           <li class="nav-item">
