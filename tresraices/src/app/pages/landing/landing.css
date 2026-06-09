@@ -27,6 +27,7 @@
   background: url('/assets/hero-imagen.png') center center / cover no-repeat;
   transform: scale(1.1);
   animation: heroZoom 20s ease infinite alternate;
+  will-change: transform;
 }
 
 @keyframes heroZoom {
@@ -440,6 +441,18 @@
 [data-section="lotes"] .section-title { animation-delay: 0.12s; }
 [data-section="lotes"] .section-subtitle { animation-delay: 0.24s; }
 
+/* ===================== CONTENT VISIBILITY (performance) ===================== */
+[data-section="about"],
+[data-section="servicios"],
+[data-section="proceso"],
+[data-section="cerros"],
+[data-section="lotes"],
+[data-section="equipo"],
+[data-section="contacto"] {
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
+}
+
 /* ===================== ABOUT ===================== */
 .about-image-wrapper {
   position: relative;
@@ -724,7 +737,7 @@
 .loteo-bg {
   position: absolute;
   inset: 0;
-  background: url('/assets/posible-hero2.png') center center / cover no-repeat fixed;
+  background: url('/assets/posible-hero2.png') center center / cover no-repeat scroll;
   transform: scale(1.05);
 }
 
