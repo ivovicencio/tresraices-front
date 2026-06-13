@@ -100,32 +100,27 @@
   background-clip: text;
 }
 
-/* Divider */
-.hero-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  margin: 0.75rem auto;
-  width: fit-content;
-  opacity: 0;
-}
-
-.hero-divider-line {
+/* SVG divider (draw animation) */
+.hero-svg {
   display: block;
-  width: 40px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(201, 162, 65, 0.3));
+  width: 180px;
+  height: 16px;
+  margin: 0.75rem auto;
+  overflow: visible;
 }
 
-.hero-divider-line:last-child {
-  background: linear-gradient(90deg, rgba(201, 162, 65, 0.3), transparent);
+.hero-svg-line {
+  stroke: rgba(201, 162, 65, 0.3);
+  stroke-width: 1;
+  fill: none;
+  stroke-linecap: round;
 }
 
-.hero-divider i {
-  font-size: 0.35rem;
-  color: var(--gold-primary);
-  opacity: 0.4;
+.hero-svg-diamond {
+  stroke: var(--gold-primary);
+  stroke-width: 1;
+  fill: none;
+  stroke-linejoin: round;
 }
 
 /* Subtitle */
