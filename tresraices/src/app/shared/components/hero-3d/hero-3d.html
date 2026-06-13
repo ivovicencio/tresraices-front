@@ -1,115 +1,50 @@
-<div class="hero-cinematic" (mousemove)="onMouseMove($event)">
-  <!-- Capas de fondo -->
-  <div class="hero-bg-base"></div>
-  <div class="hero-bg-terrain"></div>
-  <div class="hero-bg-contours"></div>
-  <div class="hero-overlay-dark"></div>
-  <div class="hero-vignette"></div>
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-particles"></div>
 
-  <!-- Líneas de conexión SVG -->
-  <svg class="hero-svg-lines" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
-    <defs>
-      <linearGradient id="lineGlow" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="rgba(201,162,65,0)" />
-        <stop offset="50%" stop-color="rgba(201,162,65,0.3)" />
-        <stop offset="100%" stop-color="rgba(201,162,65,0)" />
-      </linearGradient>
-      @for (p of points; track p.id) {
-        <linearGradient [id]="'line-' + p.id" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" [attr.stop-color]="p.color" stop-opacity="0" />
-          <stop offset="60%" [attr.stop-color]="p.color" stop-opacity="0.25" />
-          <stop offset="100%" [attr.stop-color]="p.color" stop-opacity="0" />
-        </linearGradient>
-      }
-    </defs>
-
-    @for (path of svgPaths; track path.id) {
-      <path
-        class="connection-path"
-        [attr.d]="path.d"
-        [attr.stroke]="path.color"
-        stroke-width="0.15"
-        fill="none"
-        stroke-dasharray="300"
-        stroke-dashoffset="300"
-        opacity="0.3"
-        [class.active]="hoveredPoint === path.id || activePoint === path.id"
-      />
-    }
-  </svg>
-
-  <!-- Puntos de interés -->
-  <div class="poi-container">
-    <div class="poi-hub">
-      <div class="hub-ring"></div>
-    </div>
-
-    @for (p of points; track p.id) {
-      <div
-        class="poi-marker"
-        [class.hovered]="hoveredPoint === p.id"
-        [class.active]="activePoint === p.id"
-        [style.left]="p.x + '%'"
-        [style.top]="p.y + '%'"
-        (mouseenter)="onPointEnter(p.id)"
-        (mouseleave)="onPointLeave()"
-        (click)="togglePoint(p.id)"
-      >
-        <span class="poi-dot" [style.--poi-color]="p.color"></span>
-        <span class="poi-ring" [style.--poi-color]="p.color"></span>
-        <span class="poi-label">{{ p.title }}</span>
-      </div>
-    }
-  </div>
-
-  <!-- Tooltip glassmorphism -->
-  @if (activePointData) {
-    <div
-      class="poi-tooltip visible"
-      [style.left]="activePointData.x + '%'"
-      [style.top]="activePointData.y + '%'"
-      (click)="closeTooltip()"
-    >
-      <div class="tooltip-grip"></div>
-      <h3 class="tooltip-title">{{ activePointData.title }}</h3>
-      <p class="tooltip-desc">{{ activePointData.desc }}</p>
-      <a
-        [href]="'https://wa.me/' + whatsapp + '?text=' + encodeURIComponent('Quiero información sobre ' + activePointData.title)"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="tooltip-cta"
-      >
-        <i class="bi bi-whatsapp"></i> Consultar
-      </a>
-    </div>
-  }
-
-  <!-- Texto cinematográfico -->
-  <div class="hero-text-layer">
-    <div class="hero-brand-badge">
+  <div class="hero-content">
+    <div class="hero-badge">
       <i class="bi bi-diamond-fill"></i>
-      Tres Raíces
+      Inmobiliaria & Construcciones
     </div>
 
     <h1 class="hero-title">
-      <span class="hero-title-line">Donde comienza</span>
-      <span class="hero-title-line hero-title-glow">tu futuro</span>
+      <span class="hero-title-line">Tres</span>
+      <span class="hero-title-line text-gold">Raíces</span>
     </h1>
 
-    <p class="hero-tagline">Lozano &bull; Jujuy &bull; Argentina</p>
+    <div class="hero-divider">
+      <span class="hero-divider-line"></span>
+      <i class="bi bi-diamond-fill"></i>
+      <span class="hero-divider-line"></span>
+    </div>
 
-    <a routerLink="/contacto" class="hero-cta">
-      <span>Contactanos</span>
-      <i class="bi bi-whatsapp"></i>
-    </a>
+    <p class="hero-subtitle">Donde nace tu hogar</p>
+
+    <div class="service-strip">
+      @for (svc of services; track svc.id) {
+        <a
+          class="service-item"
+          [href]="'https://wa.me/' + whatsapp + '?text=' + encodeURIComponent(svc.message)"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {{ svc.label }}
+        </a>
+        @if (!$last) {
+          <span class="service-sep"></span>
+        }
+      }
+    </div>
+
+    <div class="hero-actions">
+      <a routerLink="/contacto" class="btn-gold">Contactanos <i class="bi bi-whatsapp ms-2"></i></a>
+    </div>
+
+    <div class="hero-scroll">
+      <span class="scroll-mouse"></span>
+      <span class="scroll-text">Descubrí</span>
+    </div>
   </div>
-
-  <!-- Scroll indicator -->
-  <div class="hero-scroll">
-    <span class="scroll-mouse"></span>
-    <span class="scroll-text">Explorá el desarrollo</span>
-  </div>
-
-  <!-- Bottom fade -->
-  <div class="hero-bottom-fade"></div>
 </div>
