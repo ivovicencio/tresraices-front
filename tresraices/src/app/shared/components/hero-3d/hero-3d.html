@@ -1,5 +1,7 @@
-<div #canvasContainer class="hero-3d-container">
-  <div class="hero-3d-overlay">
+<div class="hero-3d-container">
+  <canvas #splineCanvas class="spline-canvas"></canvas>
+
+  <div class="hero-overlay" [class.loaded]="loaded">
     <div class="hero-3d-content">
       <div class="hero-badge">
         <i class="bi bi-diamond-fill me-2" style="font-size:0.4rem;"></i>
@@ -31,13 +33,14 @@
 
     <div class="hotspot-labels">
       <div
-        *ngFor="let svc of services"
+        *ngFor="let svc of services; let i = index"
         class="hotspot-label"
         [class.hovered]="hoveredService === svc.id"
         [class.active]="activeService === svc.id"
-        [style.--hs-x]="(svc.position.x * 40) + 'px'"
-        [style.--hs-y]="(svc.position.z * -35) + 'px'"
+        [style.--hs-angle]="(i * 90) + 'deg'"
         (click)="toggleService(svc.id)"
+        (mouseenter)="hoveredService = svc.id"
+        (mouseleave)="hoveredService = null"
       >
         <span class="hotspot-dot"></span>
         <span class="hotspot-name">{{ svc.title }}</span>
@@ -72,4 +75,11 @@
       <span>Click para ver más</span>
     </div>
   </div>
+
+  @if (!loaded) {
+  <div class="loading-indicator">
+    <div class="loader-glow"></div>
+    <span>Cargando escena 3D...</span>
+  </div>
+  }
 </div>
