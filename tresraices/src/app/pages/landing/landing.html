@@ -1,114 +1,63 @@
 <!-- HERO -->
-<section data-section="hero" class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-gradient"></div>
-  <div class="hero-particles">
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-  </div>
-  <div class="container hero-content">
-    <div class="hero-badge">
-      <i class="bi bi-diamond-fill me-2" style="font-size:0.4rem;"></i>
-      Inmobiliaria & Construcciones
-    </div>
+<app-hero-3d></app-hero-3d>
 
-    <h1 class="hero-title">
-      <span class="hero-title-line">Tres</span>
-      <span class="hero-title-line text-gold">Raíces</span>
-    </h1>
-
-    <div class="hero-divider">
-      <span class="hero-divider-line"></span>
-      <i class="bi bi-diamond-fill hero-divider-icon"></i>
-      <span class="hero-divider-line"></span>
-    </div>
-
-    <p class="hero-subtitle">
-      Donde nace tu hogar
-    </p>
-
-    <div class="hero-actions">
-      <a routerLink="/contacto" class="btn-gold">Contactanos <i class="bi bi-whatsapp ms-2"></i></a>
-    </div>
-
-    <div class="hero-scroll">
-      <span class="scroll-mouse"></span>
-      <span class="scroll-text">Explorá</span>
-    </div>
-  </div>
-
-</section>
-
-<!-- NOSOTROS -->
+<!-- SOBRE NOSOTROS + TRABAJOS -->
 <section data-section="about" class="section-padding">
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
         <div class="about-image-wrapper">
           <div class="about-image-border"></div>
-          <img src="assets/segundafotolanding.png" alt="Tres Raíces" class="about-image" loading="lazy">
+          <img src="assets/segundafotolanding.png" alt="Tres Raíces" class="about-image" fetchpriority="high">
         </div>
       </div>
       <div class="col-lg-6">
         <div class="section-label">
-          <span class="section-line"></span>
+          <svg class="section-line-svg" viewBox="0 0 24 2" aria-hidden="true">
+            <path class="section-line-path" d="M 0 1 L 24 1" />
+          </svg>
           Sobre Nosotros
         </div>
         <h2 class="section-title">Comprometidos con tu <span class="text-gold">futuro</span></h2>
+
+        <div class="about-motion-wrap">
+          <svg class="about-motion-svg" viewBox="0 0 300 24" aria-hidden="true">
+            <path class="about-motion-path" d="M 20 12 C 100 24, 200 24, 280 12" />
+          </svg>
+          <div class="about-motion-dot"></div>
+        </div>
+
         <p class="about-mission">
-          En Tres Raíces transformamos terrenos en comunidades vibrantes en Jujuy.
+          En Tres Raíces transformamos terrenos en comunidades vibrantes.
           Creemos en la atención cercana, los procesos transparentes y el compromiso real con cada proyecto.
           Cada loteo y construcción es una oportunidad para crear espacios donde los sueños se construyen.
         </p>
+        <div class="about-stats">
+          <div class="stat-item">
+            <span class="stat-number">48</span>
+            <span class="stat-label">Lotes planificados</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Compromiso</span>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- SERVICIOS -->
-<section data-section="servicios" class="section-padding position-relative overflow-hidden">
-  <div class="container">
-    <div class="text-center mb-5">
-      <div class="section-label justify-content-center">
-        <span class="section-line"></span>
-        Servicios
-      </div>
-      <h2 class="section-title">Todo para tu <span class="text-gold">proyecto</span></h2>
-      <p class="section-subtitle mx-auto">Compra de lote, construcción y remodelaciones, todo en un mismo lugar.</p>
-    </div>
-
-    <div class="servicios-grid">
-      <div class="servicio-card">
-        <div class="servicio-img-wrap">
-          <img src="assets/lotes.png" alt="Loteos" loading="lazy">
-        </div>
-        <h3 class="servicio-title">Loteos</h3>
-        <p class="servicio-desc">Terrenos planificados con todos los servicios, listos para construir tu hogar.</p>
-      </div>
-
-      <div class="servicio-card">
-        <div class="servicio-img-wrap">
-          <img src="assets/constructordelaempresaconstruyendo.png" alt="Construcción" loading="lazy">
-        </div>
-        <h3 class="servicio-title">Construcción</h3>
-        <p class="servicio-desc">Proyectos residenciales con calidad certificada, desde los cimientos hasta los detalles finales.</p>
-      </div>
-
-      <div class="servicio-card">
-        <div class="servicio-img-wrap">
-          <img src="assets/instalaciones.png" alt="Instalaciones" loading="lazy">
-        </div>
-        <h3 class="servicio-title">Instalaciones</h3>
-        <p class="servicio-desc">Redes eléctricas, sanitarias, gas y climatización con materiales certificados y personal matriculado.</p>
-      </div>
-
-      <div class="servicio-card">
-        <div class="servicio-img-wrap">
-          <img src="assets/remodelaciones.png" alt="Remodelaciones" loading="lazy">
-        </div>
-        <h3 class="servicio-title">Remodelaciones</h3>
-        <p class="servicio-desc">Transformamos espacios existentes: ampliaciones, reformas integrales y puesta en valor.</p>
-      </div>
+    <div class="work-gallery">
+      <figure class="work-figure">
+        <img src="assets/instalaciones.png" alt="Instalaciones" loading="lazy">
+        <figcaption>Instalaciones</figcaption>
+      </figure>
+      <figure class="work-figure">
+        <img src="assets/remodelaciones.png" alt="Remodelaciones" loading="lazy">
+        <figcaption>Remodelaciones</figcaption>
+      </figure>
+      <figure class="work-figure">
+        <img src="assets/constructordelaempresaconstruyendo.png" alt="Construcción" loading="lazy">
+        <figcaption>Construcciones</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -118,48 +67,57 @@
   <div class="container position-relative z-1">
     <div class="text-center mb-5">
       <div class="section-label justify-content-center">
-        <span class="section-line"></span>
+        <svg class="section-line-svg" viewBox="0 0 24 2" aria-hidden="true">
+          <path class="section-line-path" d="M 0 1 L 24 1" />
+        </svg>
         Cómo Trabajamos
       </div>
       <h2 class="section-title">Tu camino al <span class="text-gold">hogar propio</span></h2>
       <p class="section-subtitle mx-auto">Elegí tu lote, nosotros nos encargamos del resto.</p>
     </div>
 
-    <div class="proceso-banner">
-      <img src="assets/tucaminoalhogarpropio.png" alt="Planificando tu hogar" loading="lazy">
-    </div>
-
     <div class="proceso-steps">
       <div class="proceso-step">
-        <div class="proceso-circle">
-          <i class="bi bi-search"></i>
+        <div class="proceso-step-img">
+          <img src="assets/parejamirandoplanos.png" alt="Elegí tu Lote" loading="lazy">
         </div>
-        <div class="proceso-line"></div>
-        <h4 class="proceso-title">Elegí tu Lote</h4>
-        <p class="proceso-desc">Asesoramiento personalizado para encontrar el terreno ideal según tus necesidades y presupuesto.</p>
+        <div class="proceso-step-body">
+          <span class="proceso-step-num">01</span>
+          <div>
+            <h4 class="proceso-title">Elegí tu Lote</h4>
+            <p class="proceso-desc">Asesoramiento personalizado para encontrar el terreno ideal según tus necesidades y presupuesto.</p>
+          </div>
+        </div>
       </div>
-
       <div class="proceso-step">
-        <div class="proceso-circle">
-          <i class="bi bi-building"></i>
+        <div class="proceso-step-img">
+          <img src="assets/constructordelaempresaconstruyendo.png" alt="Construimos" loading="lazy">
         </div>
-        <div class="proceso-line"></div>
-        <h4 class="proceso-title">Construimos</h4>
-        <p class="proceso-desc">Ejecutamos la obra con estándares de calidad, plazos cumplidos y comunicación constante.</p>
+        <div class="proceso-step-body">
+          <span class="proceso-step-num">02</span>
+          <div>
+            <h4 class="proceso-title">Construimos</h4>
+            <p class="proceso-desc">Ejecutamos la obra con estándares de calidad, plazos cumplidos y comunicación constante.</p>
+          </div>
+        </div>
       </div>
-
       <div class="proceso-step">
-        <div class="proceso-circle">
-          <i class="bi bi-house-heart"></i>
+        <div class="proceso-step-img">
+          <img src="assets/familiafeliz.png" alt="Recibí las Llaves" loading="lazy">
         </div>
-        <h4 class="proceso-title">Recibí las Llaves</h4>
-        <p class="proceso-desc">Tu hogar listo para habitar. La satisfacción de ver el sueño cumplido, llave en mano.</p>
+        <div class="proceso-step-body">
+          <span class="proceso-step-num">03</span>
+          <div>
+            <h4 class="proceso-title">Recibí las Llaves</h4>
+            <p class="proceso-desc">Tu hogar listo para habitar. La satisfacción de ver el sueño cumplido, llave en mano.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- NUEVO LOTEO: TIERRA DE CERROS Y DE VEGAS -->
+<!-- NUEVO LOTEO -->
 <section data-section="cerros" class="loteo-hero">
   <div class="loteo-bg"></div>
   <div class="loteo-overlay"></div>
@@ -215,12 +173,14 @@
   </div>
 </section>
 
-<!-- LOTES -->
+<!-- MAPA INTERACTIVO -->
 <section id="lotes-mapa" data-section="lotes" class="section-padding">
   <div class="container">
     <div class="text-center mb-5">
       <div class="section-label justify-content-center">
-        <span class="section-line"></span>
+        <svg class="section-line-svg" viewBox="0 0 24 2" aria-hidden="true">
+          <path class="section-line-path" d="M 0 1 L 24 1" />
+        </svg>
         Tierra de Cerros y de Vegas
       </div>
       <h2 class="section-title">Plano del Loteo <span class="text-gold">Tres Raíces</span></h2>
@@ -230,89 +190,48 @@
   </div>
 </section>
 
-<!-- EQUIPO -->
-<section data-section="equipo" class="section-padding section-gradient position-relative overflow-hidden" style="padding-bottom: 10rem;">
+<!-- EQUIPO + OBRAS -->
+<section data-section="equipo" class="section-padding section-gradient position-relative overflow-hidden">
   <div class="container position-relative z-1">
-    <div class="row align-items-center g-5">
-      <div class="col-lg-6 order-lg-2">
-        <div class="team-image-wrapper">
-          <div class="team-image-glow"></div>
-          <img src="assets/constructodelaempresasonriendoalacamara.png" alt="Equipo" class="team-image" loading="lazy">
-          <div class="team-image-badge">
-            <i class="bi bi-people-fill"></i>
-            <span>Equipo calificado</span>
-          </div>
-        </div>
+    <div class="text-center mb-5">
+      <div class="section-label justify-content-center">
+        <svg class="section-line-svg" viewBox="0 0 24 2" aria-hidden="true">
+          <path class="section-line-path" d="M 0 1 L 24 1" />
+        </svg>
+        Nuestro Equipo
       </div>
-      <div class="col-lg-6 order-lg-1">
-        <div class="section-label">
-          <span class="section-line"></span>
-          Nuestro Equipo
-        </div>
-        <h2 class="section-title">Profesionales a tu <span class="text-gold">servicio</span></h2>
-        <p class="section-subtitle mb-4">
-          Arquitectos, ingenieros y asesores inmobiliarios para hacer realidad tu hogar.
-        </p>
-        <div class="team-features">
-          <div class="team-feature-card">
-            <div class="tfc-icon-wrap">
-              <i class="bi bi-chat-dots"></i>
-            </div>
-            <div class="tfc-body">
-              <strong>Atención personalizada</strong>
-              <span>Te escuchamos y entendemos tus necesidades</span>
-            </div>
-          </div>
-          <div class="team-feature-card">
-            <div class="tfc-icon-wrap">
-              <i class="bi bi-clipboard-check"></i>
-            </div>
-            <div class="tfc-body">
-              <strong>Asesoramiento integral</strong>
-              <span>Te guiamos en cada decisión del proyecto</span>
-            </div>
-          </div>
-          <div class="team-feature-card">
-            <div class="tfc-icon-wrap">
-              <i class="bi bi-hand-index-thumb"></i>
-            </div>
-            <div class="tfc-body">
-              <strong>Acompañamiento permanente</strong>
-              <span>Estamos con vos desde el inicio hasta la entrega</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h2 class="section-title">Profesionales a tu <span class="text-gold">servicio</span></h2>
+      <p class="section-subtitle mx-auto">Arquitectos, ingenieros y asesores inmobiliarios para hacer realidad tu hogar.</p>
+    </div>
+
+    <div class="equipo-grid">
+      <figure class="equipo-figure">
+        <img src="assets/constructodelaempresasonriendoalacamara.png" alt="Equipo Tres Raíces" loading="lazy">
+      </figure>
+      <figure class="equipo-figure">
+        <img src="assets/constructoresmirandoaloteosperovistosdesdeespalda.png" alt="Obras" loading="lazy">
+      </figure>
+      <figure class="equipo-figure">
+        <img src="assets/asesoriapersonalizada.png" alt="Asesoría personalizada" loading="lazy">
+      </figure>
     </div>
   </div>
 </section>
 
-<!-- CONTACTO RÁPIDO -->
-<section data-section="contacto" class="section-padding" style="padding-bottom: 10rem;">
+<!-- CONTACTO -->
+<section data-section="contacto" class="section-padding">
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
         <div class="cta-image-wrapper">
           <img src="assets/agenteinmobiliariavendiendo.png" alt="Contacto" class="cta-image" loading="lazy">
-          <div class="cta-floating-card cta-floating-left">
-            <i class="bi bi-whatsapp cta-floating-icon"></i>
-            <div>
-              <strong>Consultá ahora</strong>
-              <span>Respuesta inmediata</span>
-            </div>
-          </div>
-          <div class="cta-floating-card cta-floating-right">
-            <i class="bi bi-star-fill" style="color:var(--gold-primary);font-size:1.5rem;"></i>
-            <div>
-              <strong>Tu hogar te espera</strong>
-              <span>Hacé realidad tu proyecto</span>
-            </div>
-          </div>
         </div>
       </div>
       <div class="col-lg-6">
         <div class="section-label">
-          <span class="section-line"></span>
+          <svg class="section-line-svg" viewBox="0 0 24 2" aria-hidden="true">
+            <path class="section-line-path" d="M 0 1 L 24 1" />
+          </svg>
           Contacto
         </div>
         <h2 class="section-title">¿Listo para encontrar tu <span class="text-gold">hogar</span>?</h2>
@@ -328,7 +247,7 @@
   </div>
 </section>
 
-<!-- WHATSAPP FLOTANTE -->
+<!-- WHATSAPP -->
 <a href="https://wa.me/{{ whatsapp }}" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chateá por WhatsApp">
   <i class="bi bi-whatsapp whatsapp-float-icon"></i>
   <span class="whatsapp-tooltip">Chateá con nosotros</span>

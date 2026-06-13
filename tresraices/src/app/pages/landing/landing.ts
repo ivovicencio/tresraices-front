@@ -1,12 +1,13 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Hero3d } from '../../shared/components/hero-3d/hero-3d';
 import { MapaInteractivo } from '../mapa-interactivo/mapa-interactivo';
 import { environment } from '../../../environments/environment';
-import { animate, createTimeline } from 'animejs';
+import { animate, createTimeline, createTimer, onScroll, splitText, svg, stagger, utils } from 'animejs';
 
 @Component({
   selector: 'app-landing',
-  imports: [RouterLink, MapaInteractivo],
+  imports: [RouterLink, Hero3d, MapaInteractivo],
   templateUrl: './landing.html',
   styleUrl: './landing.css',
 })
@@ -14,18 +15,10 @@ export class Landing implements AfterViewInit {
   whatsapp = environment.whatsappNumber;
 
   ngAfterViewInit() {
-    this.animateHero();
     this.animateScrollReveals();
     this.animateWhatsapp();
-  }
-
-  private animateHero() {
-    const tl = createTimeline({});
-    tl.add('.hero-badge', { translateY: [30, 0], opacity: [0, 1], ease: 'outCubic' }, 0)
-      .add('.hero-title-line', { translateY: [60, 0], opacity: [0, 1], ease: 'outCubic' }, 200)
-      .add('.hero-divider', { opacity: [0, 1], translateY: [15, 0], ease: 'outCubic' }, 400)
-      .add('.hero-subtitle', { translateY: [25, 0], opacity: [0, 1], ease: 'outCubic' }, 600)
-      .add('.hero-scroll', { opacity: [0, 1], translateY: [15, 0], ease: 'outCubic' }, 800);
+    this.setupParallax();
+    setTimeout(() => this.fallbackRevealAll(), 8000);
   }
 
   private animateScrollReveals() {
@@ -41,17 +34,9 @@ export class Landing implements AfterViewInit {
           { sel: '.section-label', delay: 200 },
           { sel: '.section-title', delay: 350 },
           { sel: '.about-mission', delay: 500 },
+          { sel: '.about-stats .stat-item', delay: 650, staggerDelay: 120 },
+          { sel: '.work-figure', delay: 200, staggerDelay: 150 },
         ],
-      },
-      {
-        dataSection: 'servicios',
-        items: [
-          { sel: '.section-label', delay: 0 },
-          { sel: '.section-title', delay: 150 },
-          { sel: '.section-subtitle', delay: 300 },
-          { sel: '.servicio-card', delay: 500, staggerDelay: 150 },
-        ],
-        threshold: 0.15,
       },
       {
         dataSection: 'proceso',
@@ -59,8 +44,7 @@ export class Landing implements AfterViewInit {
           { sel: '.section-label', delay: 0 },
           { sel: '.section-title', delay: 150 },
           { sel: '.section-subtitle', delay: 300 },
-          { sel: '.proceso-banner', delay: 480 },
-          { sel: '.proceso-step', delay: 700, staggerDelay: 200 },
+          { sel: '.proceso-step', delay: 480, staggerDelay: 200 },
         ],
         threshold: 0.15,
       },
@@ -88,11 +72,10 @@ export class Landing implements AfterViewInit {
       {
         dataSection: 'equipo',
         items: [
-          { sel: '.team-image-wrapper', delay: 0 },
-          { sel: '.section-label', delay: 200 },
-          { sel: '.section-title', delay: 350 },
-          { sel: '.section-subtitle', delay: 500 },
-          { sel: '.team-feature-card', delay: 650, staggerDelay: 150 },
+          { sel: '.section-label', delay: 0 },
+          { sel: '.section-title', delay: 150 },
+          { sel: '.section-subtitle', delay: 300 },
+          { sel: '.equipo-figure', delay: 480, staggerDelay: 180 },
         ],
       },
       {
@@ -115,7 +98,11 @@ export class Landing implements AfterViewInit {
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              this.revealSection(section, items);
+              if (dataSection === 'about') {
+                this.revealAbout(section);
+              } else {
+                this.revealSection(section, items);
+              }
               observer.unobserve(entry.target);
             }
           });
@@ -132,16 +119,128 @@ export class Landing implements AfterViewInit {
         if (!section) return;
         const rect = section.getBoundingClientRect();
         if (rect.top < window.innerHeight && rect.bottom > 0) {
-          this.revealSection(section, items);
+          if (dataSection === 'about') {
+            this.revealAbout(section);
+          } else {
+            this.revealSection(section, items);
+          }
         }
       });
     }, 100);
   }
 
+  private revealAbout(section: HTMLElement) {
+    const img = section.querySelectorAll('.about-image-wrapper');
+    const label = section.querySelectorAll('.section-label');
+    const title = section.querySelectorAll('.section-title');
+    const mission = section.querySelectorAll('.about-mission');
+    const stats = section.querySelectorAll('.about-stats .stat-item');
+    const figures = section.querySelectorAll('.work-figure');
+
+    animate(img, { translateY: [55, 0], opacity: [0, 1], duration: 1200, ease: 'outCubic' });
+    animate(label, { translateY: [55, 0], opacity: [0, 1], duration: 1200, ease: 'outCubic', delay: 200 });
+    animate(title, { translateY: [55, 0], opacity: [0, 1], duration: 1200, ease: 'outCubic', delay: 350 });
+
+    const aboutLines = section.querySelectorAll('.section-line-path');
+    if (aboutLines.length) {
+      animate(svg.createDrawable(aboutLines), { draw: ['0 0', '0 1'], ease: 'outQuad', duration: 500, delay: 200 });
+    }
+
+    const aboutDot = section.querySelectorAll('.about-motion-dot');
+    const aboutPath = section.querySelectorAll('.about-motion-path');
+    if (aboutDot.length && aboutPath.length) {
+      animate(aboutDot, {
+        ease: 'linear', duration: 6000, loop: true, delay: 900,
+        opacity: [0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+        ...svg.createMotionPath(aboutPath),
+      });
+      animate(svg.createDrawable(aboutPath), {
+        draw: '0 1', ease: 'linear', duration: 6000, loop: true, delay: 900,
+      });
+    }
+
+    const missionSplit = splitText(mission, { words: true });
+    createTimeline({ delay: 500 })
+      .add(mission, { opacity: [0, 1], duration: 1 }, 0)
+      .add(missionSplit.words, {
+        translateY: [30, 0],
+        opacity: [0, 1],
+        duration: 600,
+        ease: 'outQuad',
+        delay: stagger(30),
+      })
+      .add(stats, {
+        translateY: [40, 0],
+        opacity: [0, 1],
+        duration: 800,
+        ease: 'outCubic',
+        delay: stagger(120),
+      }, 0);
+
+    this.animateCounters(section);
+
+    animate(figures, {
+      translateY: [60, 0],
+      opacity: [0, 1],
+      duration: 1000,
+      ease: 'outCubic',
+      delay: stagger(150),
+    });
+  }
+
+  private animateCounters(section: HTMLElement) {
+    const counters = section.querySelectorAll('.stat-number');
+    counters.forEach(($el) => {
+      const hasPercent = $el.textContent?.includes('%') ?? false;
+      const target = parseInt($el.textContent?.replace(/[^0-9]/g, '') || '0', 10);
+      createTimer({
+        duration: 1800,
+        onUpdate: (self) => {
+          const val = Math.round(self.progress * target);
+          $el.textContent = val + (hasPercent ? '%' : '');
+        },
+      });
+    });
+  }
+
   private revealSection(section: HTMLElement, items: { sel: string; delay: number; staggerDelay?: number }[]) {
+    const secLines = section.querySelectorAll('.section-line-path');
+    if (secLines.length) {
+      animate(svg.createDrawable(secLines), { draw: ['0 0', '0 1'], ease: 'outQuad', duration: 500, delay: 200 });
+    }
+
     items.forEach(({ sel, delay, staggerDelay }) => {
       const targets = section.querySelectorAll(sel);
       if (!targets.length) return;
+
+      if (sel === '.section-subtitle') {
+        const textSplit = splitText(targets, { words: true });
+        createTimeline({ delay })
+          .add(targets, { opacity: [0, 1], duration: 1 }, 0)
+          .add(textSplit.words, {
+            translateY: [30, 0],
+            opacity: [0, 1],
+            rotateX: [-15, 0],
+            duration: 700,
+            ease: 'outQuad',
+            delay: stagger(35),
+          });
+        return;
+      }
+
+      if (sel === '.proceso-step' && staggerDelay) {
+        const tl = createTimeline({ delay });
+        targets.forEach((t) => {
+          tl.add(t, {
+            translateY: [55, 0],
+            opacity: [0, 1],
+            duration: 1000,
+            ease: 'outCubic',
+          }, `-=${0}`);
+        });
+        return;
+      }
+
       if (staggerDelay) {
         animate(targets, {
           translateY: [55, 0],
@@ -156,9 +255,32 @@ export class Landing implements AfterViewInit {
           opacity: [0, 1],
           duration: 1200,
           ease: 'outCubic',
-          delay: delay,
+          delay,
         });
       }
+    });
+  }
+
+  private setupParallax() {
+    const bg = document.querySelectorAll('.loteo-bg');
+    if (!bg.length) return;
+
+    animate(bg, {
+      translateY: ['0rem', '3rem'],
+      duration: 6000,
+      ease: 'linear',
+      autoplay: onScroll({
+        target: document.querySelector('.loteo-hero')!,
+        container: window as any,
+      }),
+    });
+
+    const badges = document.querySelectorAll('.loteo-image-badge, .about-image-border');
+    animate(badges, {
+      scale: [1, 1.02, 1],
+      duration: 4000,
+      loop: true,
+      ease: 'inOutSine',
     });
   }
 
@@ -174,6 +296,25 @@ export class Landing implements AfterViewInit {
       duration: 2000,
       loop: true,
       ease: 'inOutSine',
+    });
+  }
+
+  private fallbackRevealAll() {
+    const allAffected = document.querySelectorAll(
+      '[data-section] .section-label, [data-section] .section-title, [data-section] .section-subtitle, ' +
+      '[data-section] .about-image-wrapper, [data-section] .about-mission, ' +
+      '[data-section] .about-stats .stat-item, [data-section] .work-figure, ' +
+      '[data-section] .proceso-step, [data-section] .loteo-badge, [data-section] .loteo-title, ' +
+      '[data-section] .loteo-location, [data-section] .loteo-desc, [data-section] .loteo-feature, ' +
+      '[data-section] .loteo-image-wrapper, [data-section] .equipo-figure, ' +
+      '[data-section] .cta-image-wrapper, [data-section] .btn-gold, [data-section] .btn-outline-gold, ' +
+      '.whatsapp-float, .about-motion-dot'
+    );
+    allAffected.forEach((el) => {
+      if (el instanceof HTMLElement && el.style.opacity !== '1') {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }
     });
   }
 }

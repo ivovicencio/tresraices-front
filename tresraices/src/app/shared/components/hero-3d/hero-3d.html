@@ -1,0 +1,59 @@
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <i class="bi bi-diamond-fill"></i>
+      Inmobiliaria & Construcciones
+    </div>
+
+    <h1 class="hero-title">
+      <span class="hero-title-line">Tres</span>
+      <span class="hero-title-line text-gold">Raíces</span>
+    </h1>
+
+    <svg class="hero-svg" viewBox="0 0 180 16" aria-hidden="true">
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
+        <path class="line" d="M 90 8 L 10 8" stroke="rgba(201,162,65,0.3)" />
+        <path class="line" d="M 90 8 L 170 8" stroke="rgba(201,162,65,0.3)" />
+        <path class="line" d="M 90 2 L 96 8 L 90 14 L 84 8 Z" stroke="var(--gold-primary)" />
+      </g>
+    </svg>
+
+    <div class="hero-motion-wrap">
+      <svg class="hero-motion-svg" viewBox="0 0 260 36" aria-hidden="true">
+        <path class="motion-path" d="M 10 18 C 60 36, 200 36, 250 18" />
+      </svg>
+      <div class="motion-dot"></div>
+    </div>
+
+    <p class="hero-subtitle">Donde nace tu hogar</p>
+
+    <div class="service-strip">
+      @for (svc of services; track svc.id) {
+        <a
+          class="service-item"
+          [href]="'https://wa.me/' + whatsapp + '?text=' + encodeURIComponent(svc.message)"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {{ svc.label }}
+        </a>
+        @if (!$last) {
+          <span class="service-sep"></span>
+        }
+      }
+    </div>
+
+    <div class="hero-actions">
+      <a routerLink="/contacto" class="btn-gold">Contactanos <i class="bi bi-whatsapp ms-2"></i></a>
+    </div>
+
+    <div class="hero-scroll">
+      <span class="scroll-mouse"></span>
+      <span class="scroll-text">Descubrí</span>
+    </div>
+  </div>
+</div>
