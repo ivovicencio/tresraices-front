@@ -111,6 +111,40 @@
 
 
 
+/* Motion path */
+.hero-motion-wrap {
+  position: relative;
+  width: 260px;
+  height: 36px;
+  margin: 0 auto;
+}
+
+.hero-motion-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.motion-path {
+  stroke: rgba(201, 162, 65, 0.12);
+  stroke-width: 1;
+  fill: none;
+  stroke-linecap: round;
+}
+
+.motion-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  left: -4px;
+  top: -4px;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  box-shadow: 0 0 8px rgba(201, 162, 65, 0.4);
+  pointer-events: none;
+}
+
 /* Subtitle */
 .hero-subtitle {
   font-size: clamp(0.85rem, 1.3vw, 1.1rem);

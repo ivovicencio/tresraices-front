@@ -32,6 +32,7 @@ export class Hero3d implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.animateEntrance();
     this.animateSvgDraw();
+    this.animateMotionPath();
     this.initParticles();
   }
 
@@ -46,6 +47,26 @@ export class Hero3d implements AfterViewInit, OnDestroy {
       .add('.service-strip', { opacity: [0, 1], translateY: [10, 0], ease: 'outCubic' }, 600)
       .add('.hero-actions', { translateY: [15, 0], opacity: [0, 1], ease: 'outCubic' }, 750)
       .add('.hero-scroll', { opacity: [0, 1], translateY: [10, 0], ease: 'outCubic' }, 900);
+  }
+
+  private animateMotionPath(): void {
+    const delay = 1400;
+    animate('.motion-dot', {
+      ease: 'linear',
+      duration: 5000,
+      loop: true,
+      delay,
+      opacity: [0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+      ...svg.createMotionPath('.motion-path'),
+    });
+
+    animate(svg.createDrawable('.motion-path'), {
+      draw: '0 1',
+      ease: 'linear',
+      duration: 5000,
+      loop: true,
+      delay,
+    });
   }
 
   private animateSvgDraw(): void {
