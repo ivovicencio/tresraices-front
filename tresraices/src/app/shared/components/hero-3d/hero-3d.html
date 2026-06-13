@@ -1,85 +1,115 @@
-<div class="hero-3d-container">
-  <canvas #splineCanvas class="spline-canvas"></canvas>
+<div class="hero-cinematic" (mousemove)="onMouseMove($event)">
+  <!-- Capas de fondo -->
+  <div class="hero-bg-base"></div>
+  <div class="hero-bg-terrain"></div>
+  <div class="hero-bg-contours"></div>
+  <div class="hero-overlay-dark"></div>
+  <div class="hero-vignette"></div>
 
-  <div class="hero-overlay" [class.loaded]="loaded">
-    <div class="hero-3d-content">
-      <div class="hero-badge">
-        <i class="bi bi-diamond-fill me-2" style="font-size:0.4rem;"></i>
-        Inmobiliaria & Construcciones
-      </div>
+  <!-- Líneas de conexión SVG -->
+  <svg class="hero-svg-lines" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="lineGlow" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="rgba(201,162,65,0)" />
+        <stop offset="50%" stop-color="rgba(201,162,65,0.3)" />
+        <stop offset="100%" stop-color="rgba(201,162,65,0)" />
+      </linearGradient>
+      @for (p of points; track p.id) {
+        <linearGradient [id]="'line-' + p.id" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" [attr.stop-color]="p.color" stop-opacity="0" />
+          <stop offset="60%" [attr.stop-color]="p.color" stop-opacity="0.25" />
+          <stop offset="100%" [attr.stop-color]="p.color" stop-opacity="0" />
+        </linearGradient>
+      }
+    </defs>
 
-      <h1 class="hero-title">
-        <span class="hero-title-line">Tres</span>
-        <span class="hero-title-line text-gold">Raíces</span>
-      </h1>
+    @for (path of svgPaths; track path.id) {
+      <path
+        class="connection-path"
+        [attr.d]="path.d"
+        [attr.stroke]="path.color"
+        stroke-width="0.15"
+        fill="none"
+        stroke-dasharray="300"
+        stroke-dashoffset="300"
+        opacity="0.3"
+        [class.active]="hoveredPoint === path.id || activePoint === path.id"
+      />
+    }
+  </svg>
 
-      <div class="hero-divider">
-        <span class="hero-divider-line"></span>
-        <i class="bi bi-diamond-fill hero-divider-icon"></i>
-        <span class="hero-divider-line"></span>
-      </div>
-
-      <p class="hero-subtitle">Donde nace tu hogar</p>
-
-      <div class="hero-actions">
-        <a routerLink="/contacto" class="btn-gold">Contactanos <i class="bi bi-whatsapp ms-2"></i></a>
-      </div>
-
-      <div class="hero-scroll">
-        <span class="scroll-mouse"></span>
-        <span class="scroll-text">Explorá</span>
-      </div>
+  <!-- Puntos de interés -->
+  <div class="poi-container">
+    <div class="poi-hub">
+      <div class="hub-ring"></div>
     </div>
 
-    <div class="hotspot-labels">
+    @for (p of points; track p.id) {
       <div
-        *ngFor="let svc of services; let i = index"
-        class="hotspot-label"
-        [class.hovered]="hoveredService === svc.id"
-        [class.active]="activeService === svc.id"
-        [style.--hs-angle]="(i * 90) + 'deg'"
-        (click)="toggleService(svc.id)"
-        (mouseenter)="hoveredService = svc.id"
-        (mouseleave)="hoveredService = null"
+        class="poi-marker"
+        [class.hovered]="hoveredPoint === p.id"
+        [class.active]="activePoint === p.id"
+        [style.left]="p.x + '%'"
+        [style.top]="p.y + '%'"
+        (mouseenter)="onPointEnter(p.id)"
+        (mouseleave)="onPointLeave()"
+        (click)="togglePoint(p.id)"
       >
-        <span class="hotspot-dot"></span>
-        <span class="hotspot-name">{{ svc.title }}</span>
+        <span class="poi-dot" [style.--poi-color]="p.color"></span>
+        <span class="poi-ring" [style.--poi-color]="p.color"></span>
+        <span class="poi-label">{{ p.title }}</span>
       </div>
-    </div>
+    }
+  </div>
 
+  <!-- Tooltip glassmorphism -->
+  @if (activePointData) {
     <div
-      *ngFor="let svc of services; let i = index"
-      class="service-panel"
-      [class.visible]="activeService === svc.id"
-      [style.--panel-y]="((i - 1.5) * 120) + 'px'"
+      class="poi-tooltip visible"
+      [style.left]="activePointData.x + '%'"
+      [style.top]="activePointData.y + '%'"
+      (click)="closeTooltip()"
     >
-      <button class="panel-close" (click)="closePanel()">&times;</button>
-      <div class="panel-icon-wrap">
-        <i [class]="svc.icon"></i>
-      </div>
-      <h3 class="panel-title">{{ svc.title }}</h3>
-      <p class="panel-desc">{{ svc.desc }}</p>
+      <div class="tooltip-grip"></div>
+      <h3 class="tooltip-title">{{ activePointData.title }}</h3>
+      <p class="tooltip-desc">{{ activePointData.desc }}</p>
       <a
-        [href]="'https://wa.me/' + whatsapp + '?text=' + encodeURIComponent('Hola! Quiero información sobre ' + svc.title)"
+        [href]="'https://wa.me/' + whatsapp + '?text=' + encodeURIComponent('Quiero información sobre ' + activePointData.title)"
         target="_blank"
         rel="noopener noreferrer"
-        class="panel-cta"
+        class="tooltip-cta"
       >
-        <i class="bi bi-whatsapp"></i>
-        Consultar
+        <i class="bi bi-whatsapp"></i> Consultar
       </a>
     </div>
-
-    <div class="cursor-hint" [class.visible]="hoveredService !== null">
-      <i class="bi bi-hand-index-thumb"></i>
-      <span>Click para ver más</span>
-    </div>
-  </div>
-
-  @if (!loaded) {
-  <div class="loading-indicator">
-    <div class="loader-glow"></div>
-    <span>Cargando escena 3D...</span>
-  </div>
   }
+
+  <!-- Texto cinematográfico -->
+  <div class="hero-text-layer">
+    <div class="hero-brand-badge">
+      <i class="bi bi-diamond-fill"></i>
+      Tres Raíces
+    </div>
+
+    <h1 class="hero-title">
+      <span class="hero-title-line">Donde comienza</span>
+      <span class="hero-title-line hero-title-glow">tu futuro</span>
+    </h1>
+
+    <p class="hero-tagline">Lozano &bull; Jujuy &bull; Argentina</p>
+
+    <a routerLink="/contacto" class="hero-cta">
+      <span>Contactanos</span>
+      <i class="bi bi-whatsapp"></i>
+    </a>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="hero-scroll">
+    <span class="scroll-mouse"></span>
+    <span class="scroll-text">Explorá el desarrollo</span>
+  </div>
+
+  <!-- Bottom fade -->
+  <div class="hero-bottom-fade"></div>
 </div>
