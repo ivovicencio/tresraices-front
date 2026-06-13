@@ -424,6 +424,8 @@
   width: 100%;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
 }
 
 /* ===================== WHATSAPP FLOTANTE ===================== */
@@ -510,9 +512,6 @@
   aspect-ratio: 3 / 4;
 }
 
-.cta-image {
-  aspect-ratio: 4 / 3;
-}
 
 
 
