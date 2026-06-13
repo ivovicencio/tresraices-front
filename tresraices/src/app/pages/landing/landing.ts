@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { Hero3d } from '../../shared/components/hero-3d/hero-3d';
 import { MapaInteractivo } from '../mapa-interactivo/mapa-interactivo';
 import { environment } from '../../../environments/environment';
-import { animate, createTimeline, createTimer, onScroll, splitText, stagger, utils } from 'animejs';
+import { animate, createTimeline, createTimer, onScroll, splitText, svg, stagger, utils } from 'animejs';
 
 @Component({
   selector: 'app-landing',
@@ -141,8 +141,27 @@ export class Landing implements AfterViewInit {
     animate(label, { translateY: [55, 0], opacity: [0, 1], duration: 1200, ease: 'outCubic', delay: 200 });
     animate(title, { translateY: [55, 0], opacity: [0, 1], duration: 1200, ease: 'outCubic', delay: 350 });
 
+    const aboutLines = section.querySelectorAll('.section-line-path');
+    if (aboutLines.length) {
+      animate(svg.createDrawable(aboutLines), { draw: ['0 0', '0 1'], ease: 'outQuad', duration: 500, delay: 200 });
+    }
+
+    const aboutDot = section.querySelectorAll('.about-motion-dot');
+    const aboutPath = section.querySelectorAll('.about-motion-path');
+    if (aboutDot.length && aboutPath.length) {
+      animate(aboutDot, {
+        ease: 'linear', duration: 6000, loop: true, delay: 900,
+        opacity: [0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+        ...svg.createMotionPath(aboutPath),
+      });
+      animate(svg.createDrawable(aboutPath), {
+        draw: '0 1', ease: 'linear', duration: 6000, loop: true, delay: 900,
+      });
+    }
+
     const missionSplit = splitText(mission, { words: true });
     createTimeline({ delay: 500 })
+      .add(mission, { opacity: [0, 1], duration: 1 }, 0)
       .add(missionSplit.words, {
         translateY: [30, 0],
         opacity: [0, 1],
@@ -185,6 +204,11 @@ export class Landing implements AfterViewInit {
   }
 
   private revealSection(section: HTMLElement, items: { sel: string; delay: number; staggerDelay?: number }[]) {
+    const secLines = section.querySelectorAll('.section-line-path');
+    if (secLines.length) {
+      animate(svg.createDrawable(secLines), { draw: ['0 0', '0 1'], ease: 'outQuad', duration: 500, delay: 200 });
+    }
+
     items.forEach(({ sel, delay, staggerDelay }) => {
       const targets = section.querySelectorAll(sel);
       if (!targets.length) return;
@@ -192,6 +216,7 @@ export class Landing implements AfterViewInit {
       if (sel === '.section-subtitle') {
         const textSplit = splitText(targets, { words: true });
         createTimeline({ delay })
+          .add(targets, { opacity: [0, 1], duration: 1 }, 0)
           .add(textSplit.words, {
             translateY: [30, 0],
             opacity: [0, 1],
@@ -283,7 +308,7 @@ export class Landing implements AfterViewInit {
       '[data-section] .loteo-location, [data-section] .loteo-desc, [data-section] .loteo-feature, ' +
       '[data-section] .loteo-image-wrapper, [data-section] .equipo-figure, ' +
       '[data-section] .cta-image-wrapper, [data-section] .btn-gold, [data-section] .btn-outline-gold, ' +
-      '.whatsapp-float'
+      '.whatsapp-float, .about-motion-dot'
     );
     allAffected.forEach((el) => {
       if (el instanceof HTMLElement && el.style.opacity !== '1') {

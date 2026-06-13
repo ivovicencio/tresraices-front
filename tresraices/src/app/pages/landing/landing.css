@@ -20,7 +20,8 @@
 .cta-image-wrapper,
 .btn-gold,
 .btn-outline-gold,
-.whatsapp-float {
+.whatsapp-float,
+.about-motion-dot {
   opacity: 0;
 }
 
@@ -45,6 +46,22 @@
 }
 [data-section="about"] {
   contain-intrinsic-size: 1200px;
+}
+
+/* ===================== SECTION LINE SVG ===================== */
+.section-line-svg {
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+  vertical-align: middle;
+  overflow: visible;
+}
+
+.section-line-path {
+  stroke: var(--gold-primary);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
 }
 
 /* ===================== ABOUT ===================== */
@@ -79,6 +96,42 @@
   line-height: 1.9;
   color: var(--text-body);
   margin-bottom: 2rem;
+}
+
+/* About motion path */
+.about-motion-wrap {
+  position: relative;
+  width: 300px;
+  height: 24px;
+  margin: 0 0 1rem;
+  max-width: 100%;
+}
+
+.about-motion-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.about-motion-path {
+  stroke: rgba(201, 162, 65, 0.1);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-linecap: round;
+}
+
+.about-motion-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  box-shadow: 0 0 8px rgba(201, 162, 65, 0.4);
+  pointer-events: none;
 }
 
 .about-stats {
