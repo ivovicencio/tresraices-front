@@ -1,12 +1,13 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Hero3d } from '../../shared/components/hero-3d/hero-3d';
 import { MapaInteractivo } from '../mapa-interactivo/mapa-interactivo';
 import { environment } from '../../../environments/environment';
-import { animate, createTimeline } from 'animejs';
+import { animate } from 'animejs';
 
 @Component({
   selector: 'app-landing',
-  imports: [RouterLink, MapaInteractivo],
+  imports: [RouterLink, Hero3d, MapaInteractivo],
   templateUrl: './landing.html',
   styleUrl: './landing.css',
 })
@@ -14,18 +15,8 @@ export class Landing implements AfterViewInit {
   whatsapp = environment.whatsappNumber;
 
   ngAfterViewInit() {
-    this.animateHero();
     this.animateScrollReveals();
     this.animateWhatsapp();
-  }
-
-  private animateHero() {
-    const tl = createTimeline({});
-    tl.add('.hero-badge', { translateY: [30, 0], opacity: [0, 1], ease: 'outCubic' }, 0)
-      .add('.hero-title-line', { translateY: [60, 0], opacity: [0, 1], ease: 'outCubic' }, 200)
-      .add('.hero-divider', { opacity: [0, 1], translateY: [15, 0], ease: 'outCubic' }, 400)
-      .add('.hero-subtitle', { translateY: [25, 0], opacity: [0, 1], ease: 'outCubic' }, 600)
-      .add('.hero-scroll', { opacity: [0, 1], translateY: [15, 0], ease: 'outCubic' }, 800);
   }
 
   private animateScrollReveals() {
@@ -42,16 +33,6 @@ export class Landing implements AfterViewInit {
           { sel: '.section-title', delay: 350 },
           { sel: '.about-mission', delay: 500 },
         ],
-      },
-      {
-        dataSection: 'servicios',
-        items: [
-          { sel: '.section-label', delay: 0 },
-          { sel: '.section-title', delay: 150 },
-          { sel: '.section-subtitle', delay: 300 },
-          { sel: '.servicio-card', delay: 500, staggerDelay: 150 },
-        ],
-        threshold: 0.15,
       },
       {
         dataSection: 'proceso',

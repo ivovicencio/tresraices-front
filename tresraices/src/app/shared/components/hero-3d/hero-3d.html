@@ -1,0 +1,75 @@
+<div #canvasContainer class="hero-3d-container">
+  <div class="hero-3d-overlay">
+    <div class="hero-3d-content">
+      <div class="hero-badge">
+        <i class="bi bi-diamond-fill me-2" style="font-size:0.4rem;"></i>
+        Inmobiliaria & Construcciones
+      </div>
+
+      <h1 class="hero-title">
+        <span class="hero-title-line">Tres</span>
+        <span class="hero-title-line text-gold">Raíces</span>
+      </h1>
+
+      <div class="hero-divider">
+        <span class="hero-divider-line"></span>
+        <i class="bi bi-diamond-fill hero-divider-icon"></i>
+        <span class="hero-divider-line"></span>
+      </div>
+
+      <p class="hero-subtitle">Donde nace tu hogar</p>
+
+      <div class="hero-actions">
+        <a routerLink="/contacto" class="btn-gold">Contactanos <i class="bi bi-whatsapp ms-2"></i></a>
+      </div>
+
+      <div class="hero-scroll">
+        <span class="scroll-mouse"></span>
+        <span class="scroll-text">Explorá</span>
+      </div>
+    </div>
+
+    <div class="hotspot-labels">
+      <div
+        *ngFor="let svc of services"
+        class="hotspot-label"
+        [class.hovered]="hoveredService === svc.id"
+        [class.active]="activeService === svc.id"
+        [style.--hs-x]="(svc.position.x * 40) + 'px'"
+        [style.--hs-y]="(svc.position.z * -35) + 'px'"
+        (click)="toggleService(svc.id)"
+      >
+        <span class="hotspot-dot"></span>
+        <span class="hotspot-name">{{ svc.title }}</span>
+      </div>
+    </div>
+
+    <div
+      *ngFor="let svc of services; let i = index"
+      class="service-panel"
+      [class.visible]="activeService === svc.id"
+      [style.--panel-y]="((i - 1.5) * 120) + 'px'"
+    >
+      <button class="panel-close" (click)="closePanel()">&times;</button>
+      <div class="panel-icon-wrap">
+        <i [class]="svc.icon"></i>
+      </div>
+      <h3 class="panel-title">{{ svc.title }}</h3>
+      <p class="panel-desc">{{ svc.desc }}</p>
+      <a
+        [href]="'https://wa.me/' + whatsapp + '?text=' + encodeURIComponent('Hola! Quiero información sobre ' + svc.title)"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="panel-cta"
+      >
+        <i class="bi bi-whatsapp"></i>
+        Consultar
+      </a>
+    </div>
+
+    <div class="cursor-hint" [class.visible]="hoveredService !== null">
+      <i class="bi bi-hand-index-thumb"></i>
+      <span>Click para ver más</span>
+    </div>
+  </div>
+</div>

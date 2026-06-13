@@ -1,43 +1,5 @@
-<!-- HERO -->
-<section data-section="hero" class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-gradient"></div>
-  <div class="hero-particles">
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-  </div>
-  <div class="container hero-content">
-    <div class="hero-badge">
-      <i class="bi bi-diamond-fill me-2" style="font-size:0.4rem;"></i>
-      Inmobiliaria & Construcciones
-    </div>
-
-    <h1 class="hero-title">
-      <span class="hero-title-line">Tres</span>
-      <span class="hero-title-line text-gold">Raíces</span>
-    </h1>
-
-    <div class="hero-divider">
-      <span class="hero-divider-line"></span>
-      <i class="bi bi-diamond-fill hero-divider-icon"></i>
-      <span class="hero-divider-line"></span>
-    </div>
-
-    <p class="hero-subtitle">
-      Donde nace tu hogar
-    </p>
-
-    <div class="hero-actions">
-      <a routerLink="/contacto" class="btn-gold">Contactanos <i class="bi bi-whatsapp ms-2"></i></a>
-    </div>
-
-    <div class="hero-scroll">
-      <span class="scroll-mouse"></span>
-      <span class="scroll-text">Explorá</span>
-    </div>
-  </div>
-
-</section>
+<!-- HERO 3D (replaces old hero + servicios) -->
+<app-hero-3d></app-hero-3d>
 
 <!-- NOSOTROS -->
 <section data-section="about" class="section-padding">
@@ -60,54 +22,6 @@
           Creemos en la atención cercana, los procesos transparentes y el compromiso real con cada proyecto.
           Cada loteo y construcción es una oportunidad para crear espacios donde los sueños se construyen.
         </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICIOS -->
-<section data-section="servicios" class="section-padding position-relative overflow-hidden">
-  <div class="container">
-    <div class="text-center mb-5">
-      <div class="section-label justify-content-center">
-        <span class="section-line"></span>
-        Servicios
-      </div>
-      <h2 class="section-title">Todo para tu <span class="text-gold">proyecto</span></h2>
-      <p class="section-subtitle mx-auto">Compra de lote, construcción y remodelaciones, todo en un mismo lugar.</p>
-    </div>
-
-    <div class="servicios-grid">
-      <div class="servicio-card">
-        <div class="servicio-img-wrap">
-          <img src="assets/lotes.png" alt="Loteos" loading="lazy">
-        </div>
-        <h3 class="servicio-title">Loteos</h3>
-        <p class="servicio-desc">Terrenos planificados con todos los servicios, listos para construir tu hogar.</p>
-      </div>
-
-      <div class="servicio-card">
-        <div class="servicio-img-wrap">
-          <img src="assets/constructordelaempresaconstruyendo.png" alt="Construcción" loading="lazy">
-        </div>
-        <h3 class="servicio-title">Construcción</h3>
-        <p class="servicio-desc">Proyectos residenciales con calidad certificada, desde los cimientos hasta los detalles finales.</p>
-      </div>
-
-      <div class="servicio-card">
-        <div class="servicio-img-wrap">
-          <img src="assets/instalaciones.png" alt="Instalaciones" loading="lazy">
-        </div>
-        <h3 class="servicio-title">Instalaciones</h3>
-        <p class="servicio-desc">Redes eléctricas, sanitarias, gas y climatización con materiales certificados y personal matriculado.</p>
-      </div>
-
-      <div class="servicio-card">
-        <div class="servicio-img-wrap">
-          <img src="assets/remodelaciones.png" alt="Remodelaciones" loading="lazy">
-        </div>
-        <h3 class="servicio-title">Remodelaciones</h3>
-        <p class="servicio-desc">Transformamos espacios existentes: ampliaciones, reformas integrales y puesta en valor.</p>
       </div>
     </div>
   </div>
@@ -152,6 +66,7 @@
         <div class="proceso-circle">
           <i class="bi bi-house-heart"></i>
         </div>
+        <div class="proceso-line"></div>
         <h4 class="proceso-title">Recibí las Llaves</h4>
         <p class="proceso-desc">Tu hogar listo para habitar. La satisfacción de ver el sueño cumplido, llave en mano.</p>
       </div>
@@ -215,7 +130,7 @@
   </div>
 </section>
 
-<!-- LOTES -->
+<!-- LOTES (mapa interactivo) -->
 <section id="lotes-mapa" data-section="lotes" class="section-padding">
   <div class="container">
     <div class="text-center mb-5">
