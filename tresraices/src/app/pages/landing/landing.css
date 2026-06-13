@@ -35,14 +35,16 @@
 [data-section="lotes"] .section-subtitle { animation-delay: 0.24s; }
 
 /* ===================== CONTENT VISIBILITY ===================== */
-[data-section="about"],
 [data-section="proceso"],
 [data-section="cerros"],
 [data-section="lotes"],
 [data-section="equipo"],
 [data-section="contacto"] {
   content-visibility: auto;
-  contain-intrinsic-size: 800px;
+  contain-intrinsic-size: 1200px;
+}
+[data-section="about"] {
+  contain-intrinsic-size: 1200px;
 }
 
 /* ===================== ABOUT ===================== */
