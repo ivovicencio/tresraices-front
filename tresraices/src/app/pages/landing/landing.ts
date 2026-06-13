@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { Hero3d } from '../../shared/components/hero-3d/hero-3d';
 import { MapaInteractivo } from '../mapa-interactivo/mapa-interactivo';
 import { environment } from '../../../environments/environment';
-import { animate } from 'animejs';
+import { animate, createTimeline, createTimer, onScroll, splitText, stagger, utils } from 'animejs';
 
 @Component({
   selector: 'app-landing',
@@ -17,6 +17,7 @@ export class Landing implements AfterViewInit {
   ngAfterViewInit() {
     this.animateScrollReveals();
     this.animateWhatsapp();
+    this.setupParallax();
     setTimeout(() => this.fallbackRevealAll(), 8000);
   }
 
@@ -97,7 +98,11 @@ export class Landing implements AfterViewInit {
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              this.revealSection(section, items);
+              if (dataSection === 'about') {
+                this.revealAbout(section);
+              } else {
+                this.revealSection(section, items);
+              }
               observer.unobserve(entry.target);
             }
           });
@@ -114,16 +119,103 @@ export class Landing implements AfterViewInit {
         if (!section) return;
         const rect = section.getBoundingClientRect();
         if (rect.top < window.innerHeight && rect.bottom > 0) {
-          this.revealSection(section, items);
+          if (dataSection === 'about') {
+            this.revealAbout(section);
+          } else {
+            this.revealSection(section, items);
+          }
         }
       });
     }, 100);
+  }
+
+  private revealAbout(section: HTMLElement) {
+    const img = section.querySelectorAll('.about-image-wrapper');
+    const label = section.querySelectorAll('.section-label');
+    const title = section.querySelectorAll('.section-title');
+    const mission = section.querySelectorAll('.about-mission');
+    const stats = section.querySelectorAll('.about-stats .stat-item');
+    const figures = section.querySelectorAll('.work-figure');
+
+    animate(img, { translateY: [55, 0], opacity: [0, 1], duration: 1200, ease: 'outCubic' });
+    animate(label, { translateY: [55, 0], opacity: [0, 1], duration: 1200, ease: 'outCubic', delay: 200 });
+    animate(title, { translateY: [55, 0], opacity: [0, 1], duration: 1200, ease: 'outCubic', delay: 350 });
+
+    const missionSplit = splitText(mission, { words: true });
+    createTimeline({ delay: 500 })
+      .add(missionSplit.words, {
+        translateY: [30, 0],
+        opacity: [0, 1],
+        duration: 600,
+        ease: 'outQuad',
+        delay: stagger(30),
+      })
+      .add(stats, {
+        translateY: [40, 0],
+        opacity: [0, 1],
+        duration: 800,
+        ease: 'outCubic',
+        delay: stagger(120),
+      }, 0);
+
+    this.animateCounters(section);
+
+    animate(figures, {
+      translateY: [60, 0],
+      opacity: [0, 1],
+      duration: 1000,
+      ease: 'outCubic',
+      delay: stagger(150),
+    });
+  }
+
+  private animateCounters(section: HTMLElement) {
+    const counters = section.querySelectorAll('.stat-number');
+    counters.forEach(($el) => {
+      const hasPercent = $el.textContent?.includes('%') ?? false;
+      const target = parseInt($el.textContent?.replace(/[^0-9]/g, '') || '0', 10);
+      createTimer({
+        duration: 1800,
+        onUpdate: (self) => {
+          const val = Math.round(self.progress * target);
+          $el.textContent = val + (hasPercent ? '%' : '');
+        },
+      });
+    });
   }
 
   private revealSection(section: HTMLElement, items: { sel: string; delay: number; staggerDelay?: number }[]) {
     items.forEach(({ sel, delay, staggerDelay }) => {
       const targets = section.querySelectorAll(sel);
       if (!targets.length) return;
+
+      if (sel === '.section-subtitle') {
+        const textSplit = splitText(targets, { words: true });
+        createTimeline({ delay })
+          .add(textSplit.words, {
+            translateY: [30, 0],
+            opacity: [0, 1],
+            rotateX: [-15, 0],
+            duration: 700,
+            ease: 'outQuad',
+            delay: stagger(35),
+          });
+        return;
+      }
+
+      if (sel === '.proceso-step' && staggerDelay) {
+        const tl = createTimeline({ delay });
+        targets.forEach((t) => {
+          tl.add(t, {
+            translateY: [55, 0],
+            opacity: [0, 1],
+            duration: 1000,
+            ease: 'outCubic',
+          }, `-=${0}`);
+        });
+        return;
+      }
+
       if (staggerDelay) {
         animate(targets, {
           translateY: [55, 0],
@@ -138,9 +230,32 @@ export class Landing implements AfterViewInit {
           opacity: [0, 1],
           duration: 1200,
           ease: 'outCubic',
-          delay: delay,
+          delay,
         });
       }
+    });
+  }
+
+  private setupParallax() {
+    const bg = document.querySelectorAll('.loteo-bg');
+    if (!bg.length) return;
+
+    animate(bg, {
+      translateY: ['0rem', '3rem'],
+      duration: 6000,
+      ease: 'linear',
+      autoplay: onScroll({
+        target: document.querySelector('.loteo-hero')!,
+        container: window as any,
+      }),
+    });
+
+    const badges = document.querySelectorAll('.loteo-image-badge, .about-image-border');
+    animate(badges, {
+      scale: [1, 1.02, 1],
+      duration: 4000,
+      loop: true,
+      ease: 'inOutSine',
     });
   }
 
@@ -159,7 +274,6 @@ export class Landing implements AfterViewInit {
     });
   }
 
-  /* Ultimate safety net: if all JS animation fails, show everything after 8s */
   private fallbackRevealAll() {
     const allAffected = document.querySelectorAll(
       '[data-section] .section-label, [data-section] .section-title, [data-section] .section-subtitle, ' +
