@@ -17,6 +17,7 @@ export class Landing implements AfterViewInit {
   ngAfterViewInit() {
     this.animateScrollReveals();
     this.animateWhatsapp();
+    setTimeout(() => this.fallbackRevealAll(), 8000);
   }
 
   private animateScrollReveals() {
@@ -32,6 +33,8 @@ export class Landing implements AfterViewInit {
           { sel: '.section-label', delay: 200 },
           { sel: '.section-title', delay: 350 },
           { sel: '.about-mission', delay: 500 },
+          { sel: '.about-stats .stat-item', delay: 650, staggerDelay: 120 },
+          { sel: '.work-figure', delay: 200, staggerDelay: 150 },
         ],
       },
       {
@@ -40,8 +43,7 @@ export class Landing implements AfterViewInit {
           { sel: '.section-label', delay: 0 },
           { sel: '.section-title', delay: 150 },
           { sel: '.section-subtitle', delay: 300 },
-          { sel: '.proceso-banner', delay: 480 },
-          { sel: '.proceso-step', delay: 700, staggerDelay: 200 },
+          { sel: '.proceso-step', delay: 480, staggerDelay: 200 },
         ],
         threshold: 0.15,
       },
@@ -69,11 +71,10 @@ export class Landing implements AfterViewInit {
       {
         dataSection: 'equipo',
         items: [
-          { sel: '.team-image-wrapper', delay: 0 },
-          { sel: '.section-label', delay: 200 },
-          { sel: '.section-title', delay: 350 },
-          { sel: '.section-subtitle', delay: 500 },
-          { sel: '.team-feature-card', delay: 650, staggerDelay: 150 },
+          { sel: '.section-label', delay: 0 },
+          { sel: '.section-title', delay: 150 },
+          { sel: '.section-subtitle', delay: 300 },
+          { sel: '.equipo-figure', delay: 480, staggerDelay: 180 },
         ],
       },
       {
@@ -155,6 +156,26 @@ export class Landing implements AfterViewInit {
       duration: 2000,
       loop: true,
       ease: 'inOutSine',
+    });
+  }
+
+  /* Ultimate safety net: if all JS animation fails, show everything after 8s */
+  private fallbackRevealAll() {
+    const allAffected = document.querySelectorAll(
+      '[data-section] .section-label, [data-section] .section-title, [data-section] .section-subtitle, ' +
+      '[data-section] .about-image-wrapper, [data-section] .about-mission, ' +
+      '[data-section] .about-stats .stat-item, [data-section] .work-figure, ' +
+      '[data-section] .proceso-step, [data-section] .loteo-badge, [data-section] .loteo-title, ' +
+      '[data-section] .loteo-location, [data-section] .loteo-desc, [data-section] .loteo-feature, ' +
+      '[data-section] .loteo-image-wrapper, [data-section] .equipo-figure, ' +
+      '[data-section] .cta-image-wrapper, [data-section] .btn-gold, [data-section] .btn-outline-gold, ' +
+      '.whatsapp-float'
+    );
+    allAffected.forEach((el) => {
+      if (el instanceof HTMLElement && el.style.opacity !== '1') {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }
     });
   }
 }

@@ -1,14 +1,14 @@
-<!-- HERO 3D (replaces old hero + servicios) -->
+<!-- HERO -->
 <app-hero-3d></app-hero-3d>
 
-<!-- NOSOTROS -->
+<!-- SOBRE NOSOTROS + TRABAJOS -->
 <section data-section="about" class="section-padding">
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
         <div class="about-image-wrapper">
           <div class="about-image-border"></div>
-          <img src="assets/segundafotolanding.png" alt="Tres Raíces" class="about-image" loading="lazy">
+          <img src="assets/segundafotolanding.png" alt="Tres Raíces" class="about-image" fetchpriority="high">
         </div>
       </div>
       <div class="col-lg-6">
@@ -18,11 +18,36 @@
         </div>
         <h2 class="section-title">Comprometidos con tu <span class="text-gold">futuro</span></h2>
         <p class="about-mission">
-          En Tres Raíces transformamos terrenos en comunidades vibrantes en Jujuy.
+          En Tres Raíces transformamos terrenos en comunidades vibrantes.
           Creemos en la atención cercana, los procesos transparentes y el compromiso real con cada proyecto.
           Cada loteo y construcción es una oportunidad para crear espacios donde los sueños se construyen.
         </p>
+        <div class="about-stats">
+          <div class="stat-item">
+            <span class="stat-number">48</span>
+            <span class="stat-label">Lotes planificados</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Compromiso</span>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <div class="work-gallery">
+      <figure class="work-figure">
+        <img src="assets/instalaciones.png" alt="Instalaciones" loading="lazy">
+        <figcaption>Instalaciones</figcaption>
+      </figure>
+      <figure class="work-figure">
+        <img src="assets/remodelaciones.png" alt="Remodelaciones" loading="lazy">
+        <figcaption>Remodelaciones</figcaption>
+      </figure>
+      <figure class="work-figure">
+        <img src="assets/constructordelaempresaconstruyendo.png" alt="Construcción" loading="lazy">
+        <figcaption>Construcciones</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -39,42 +64,48 @@
       <p class="section-subtitle mx-auto">Elegí tu lote, nosotros nos encargamos del resto.</p>
     </div>
 
-    <div class="proceso-banner">
-      <img src="assets/tucaminoalhogarpropio.png" alt="Planificando tu hogar" loading="lazy">
-    </div>
-
     <div class="proceso-steps">
       <div class="proceso-step">
-        <div class="proceso-circle">
-          <i class="bi bi-search"></i>
+        <div class="proceso-step-img">
+          <img src="assets/parejamirandoplanos.png" alt="Elegí tu Lote" loading="lazy">
         </div>
-        <div class="proceso-line"></div>
-        <h4 class="proceso-title">Elegí tu Lote</h4>
-        <p class="proceso-desc">Asesoramiento personalizado para encontrar el terreno ideal según tus necesidades y presupuesto.</p>
+        <div class="proceso-step-body">
+          <span class="proceso-step-num">01</span>
+          <div>
+            <h4 class="proceso-title">Elegí tu Lote</h4>
+            <p class="proceso-desc">Asesoramiento personalizado para encontrar el terreno ideal según tus necesidades y presupuesto.</p>
+          </div>
+        </div>
       </div>
-
       <div class="proceso-step">
-        <div class="proceso-circle">
-          <i class="bi bi-building"></i>
+        <div class="proceso-step-img">
+          <img src="assets/constructordelaempresaconstruyendo.png" alt="Construimos" loading="lazy">
         </div>
-        <div class="proceso-line"></div>
-        <h4 class="proceso-title">Construimos</h4>
-        <p class="proceso-desc">Ejecutamos la obra con estándares de calidad, plazos cumplidos y comunicación constante.</p>
+        <div class="proceso-step-body">
+          <span class="proceso-step-num">02</span>
+          <div>
+            <h4 class="proceso-title">Construimos</h4>
+            <p class="proceso-desc">Ejecutamos la obra con estándares de calidad, plazos cumplidos y comunicación constante.</p>
+          </div>
+        </div>
       </div>
-
       <div class="proceso-step">
-        <div class="proceso-circle">
-          <i class="bi bi-house-heart"></i>
+        <div class="proceso-step-img">
+          <img src="assets/familiafeliz.png" alt="Recibí las Llaves" loading="lazy">
         </div>
-        <div class="proceso-line"></div>
-        <h4 class="proceso-title">Recibí las Llaves</h4>
-        <p class="proceso-desc">Tu hogar listo para habitar. La satisfacción de ver el sueño cumplido, llave en mano.</p>
+        <div class="proceso-step-body">
+          <span class="proceso-step-num">03</span>
+          <div>
+            <h4 class="proceso-title">Recibí las Llaves</h4>
+            <p class="proceso-desc">Tu hogar listo para habitar. La satisfacción de ver el sueño cumplido, llave en mano.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- NUEVO LOTEO: TIERRA DE CERROS Y DE VEGAS -->
+<!-- NUEVO LOTEO -->
 <section data-section="cerros" class="loteo-hero">
   <div class="loteo-bg"></div>
   <div class="loteo-overlay"></div>
@@ -130,7 +161,7 @@
   </div>
 </section>
 
-<!-- LOTES (mapa interactivo) -->
+<!-- MAPA INTERACTIVO -->
 <section id="lotes-mapa" data-section="lotes" class="section-padding">
   <div class="container">
     <div class="text-center mb-5">
@@ -145,84 +176,39 @@
   </div>
 </section>
 
-<!-- EQUIPO -->
-<section data-section="equipo" class="section-padding section-gradient position-relative overflow-hidden" style="padding-bottom: 10rem;">
+<!-- EQUIPO + OBRAS -->
+<section data-section="equipo" class="section-padding section-gradient position-relative overflow-hidden">
   <div class="container position-relative z-1">
-    <div class="row align-items-center g-5">
-      <div class="col-lg-6 order-lg-2">
-        <div class="team-image-wrapper">
-          <div class="team-image-glow"></div>
-          <img src="assets/constructodelaempresasonriendoalacamara.png" alt="Equipo" class="team-image" loading="lazy">
-          <div class="team-image-badge">
-            <i class="bi bi-people-fill"></i>
-            <span>Equipo calificado</span>
-          </div>
-        </div>
+    <div class="text-center mb-5">
+      <div class="section-label justify-content-center">
+        <span class="section-line"></span>
+        Nuestro Equipo
       </div>
-      <div class="col-lg-6 order-lg-1">
-        <div class="section-label">
-          <span class="section-line"></span>
-          Nuestro Equipo
-        </div>
-        <h2 class="section-title">Profesionales a tu <span class="text-gold">servicio</span></h2>
-        <p class="section-subtitle mb-4">
-          Arquitectos, ingenieros y asesores inmobiliarios para hacer realidad tu hogar.
-        </p>
-        <div class="team-features">
-          <div class="team-feature-card">
-            <div class="tfc-icon-wrap">
-              <i class="bi bi-chat-dots"></i>
-            </div>
-            <div class="tfc-body">
-              <strong>Atención personalizada</strong>
-              <span>Te escuchamos y entendemos tus necesidades</span>
-            </div>
-          </div>
-          <div class="team-feature-card">
-            <div class="tfc-icon-wrap">
-              <i class="bi bi-clipboard-check"></i>
-            </div>
-            <div class="tfc-body">
-              <strong>Asesoramiento integral</strong>
-              <span>Te guiamos en cada decisión del proyecto</span>
-            </div>
-          </div>
-          <div class="team-feature-card">
-            <div class="tfc-icon-wrap">
-              <i class="bi bi-hand-index-thumb"></i>
-            </div>
-            <div class="tfc-body">
-              <strong>Acompañamiento permanente</strong>
-              <span>Estamos con vos desde el inicio hasta la entrega</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h2 class="section-title">Profesionales a tu <span class="text-gold">servicio</span></h2>
+      <p class="section-subtitle mx-auto">Arquitectos, ingenieros y asesores inmobiliarios para hacer realidad tu hogar.</p>
+    </div>
+
+    <div class="equipo-grid">
+      <figure class="equipo-figure">
+        <img src="assets/constructodelaempresasonriendoalacamara.png" alt="Equipo Tres Raíces" loading="lazy">
+      </figure>
+      <figure class="equipo-figure">
+        <img src="assets/constructoresmirandoaloteosperovistosdesdeespalda.png" alt="Obras" loading="lazy">
+      </figure>
+      <figure class="equipo-figure">
+        <img src="assets/asesoriapersonalizada.png" alt="Asesoría personalizada" loading="lazy">
+      </figure>
     </div>
   </div>
 </section>
 
-<!-- CONTACTO RÁPIDO -->
-<section data-section="contacto" class="section-padding" style="padding-bottom: 10rem;">
+<!-- CONTACTO -->
+<section data-section="contacto" class="section-padding">
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
         <div class="cta-image-wrapper">
           <img src="assets/agenteinmobiliariavendiendo.png" alt="Contacto" class="cta-image" loading="lazy">
-          <div class="cta-floating-card cta-floating-left">
-            <i class="bi bi-whatsapp cta-floating-icon"></i>
-            <div>
-              <strong>Consultá ahora</strong>
-              <span>Respuesta inmediata</span>
-            </div>
-          </div>
-          <div class="cta-floating-card cta-floating-right">
-            <i class="bi bi-star-fill" style="color:var(--gold-primary);font-size:1.5rem;"></i>
-            <div>
-              <strong>Tu hogar te espera</strong>
-              <span>Hacé realidad tu proyecto</span>
-            </div>
-          </div>
         </div>
       </div>
       <div class="col-lg-6">
@@ -243,7 +229,7 @@
   </div>
 </section>
 
-<!-- WHATSAPP FLOTANTE -->
+<!-- WHATSAPP -->
 <a href="https://wa.me/{{ whatsapp }}" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chateá por WhatsApp">
   <i class="bi bi-whatsapp whatsapp-float-icon"></i>
   <span class="whatsapp-tooltip">Chateá con nosotros</span>
