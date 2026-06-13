@@ -109,19 +109,7 @@
   overflow: visible;
 }
 
-.hero-svg-line {
-  stroke: rgba(201, 162, 65, 0.3);
-  stroke-width: 1;
-  fill: none;
-  stroke-linecap: round;
-}
 
-.hero-svg-diamond {
-  stroke: var(--gold-primary);
-  stroke-width: 1;
-  fill: none;
-  stroke-linejoin: round;
-}
 
 /* Subtitle */
 .hero-subtitle {

@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { createTimeline, svg } from 'animejs';
+import { animate, createTimeline, svg, stagger } from 'animejs';
 import { environment } from '../../../../environments/environment';
 
 interface ServiceLink {
@@ -31,6 +31,7 @@ export class Hero3d implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.animateEntrance();
+    this.animateSvgDraw();
     this.initParticles();
   }
 
@@ -40,19 +41,23 @@ export class Hero3d implements AfterViewInit, OnDestroy {
 
   private animateEntrance(): void {
     const tl = createTimeline({});
-
-    const [left] = svg.createDrawable('.hero-svg-left');
-    const [right] = svg.createDrawable('.hero-svg-right');
-    const [diamond] = svg.createDrawable('.hero-svg-diamond');
-
     tl.add('.hero-badge', { translateY: [20, 0], opacity: [0, 1], ease: 'outCubic' }, 0)
       .add('.hero-title-line', { translateY: [40, 0], opacity: [0, 1], ease: 'outCubic', duration: 1000 }, 200)
-      .add(left, { draw: ['0 0', '0 1'], ease: 'inOutQuad', duration: 800 }, 500)
-      .add(right, { draw: ['0 0', '0 1'], ease: 'inOutQuad', duration: 800 }, 500)
-      .add(diamond, { draw: ['0 0', '0 1'], ease: 'outBack', duration: 500 }, 800)
       .add('.service-strip', { opacity: [0, 1], translateY: [10, 0], ease: 'outCubic' }, 600)
       .add('.hero-actions', { translateY: [15, 0], opacity: [0, 1], ease: 'outCubic' }, 750)
       .add('.hero-scroll', { opacity: [0, 1], translateY: [10, 0], ease: 'outCubic' }, 900);
+  }
+
+  private animateSvgDraw(): void {
+    setTimeout(() => {
+      animate(svg.createDrawable('.line'), {
+        draw: ['0 0', '0 1', '1 1'],
+        ease: 'inOutQuad',
+        duration: 2000,
+        delay: stagger(100),
+        loop: true
+      });
+    }, 1200);
   }
 
   private initParticles(): void {
