@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { LoteService } from '../../core/services/lote';
-import { Lote } from '../../models/lote.models';
+import { LoteData } from '../../data/lotes.data';
 
 @Component({
   selector: 'app-contacto',
@@ -13,7 +13,7 @@ import { Lote } from '../../models/lote.models';
 })
 export class Contacto implements OnInit {
   whatsapp = environment.whatsappNumber;
-  lotes: Lote[] = [];
+  lotes: LoteData[] = [];
 
   form = {
     nombre: '',

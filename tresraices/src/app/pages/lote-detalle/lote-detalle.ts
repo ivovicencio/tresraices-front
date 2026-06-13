@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { LoteService } from '../../core/services/lote';
-import { LeadService } from '../../core/services/lead';
-import { Lote } from '../../models/lote.models';
+import { LoteData } from '../../data/lotes.data';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -13,7 +12,7 @@ import { environment } from '../../../environments/environment';
   styleUrl: './lote-detalle.css',
 })
 export class LoteDetalle implements OnInit {
-  lote: Lote | null = null;
+  lote: LoteData | null = null;
   loading = true;
   error = '';
 
@@ -28,12 +27,9 @@ export class LoteDetalle implements OnInit {
   successMsg = '';
   errorMsg = '';
 
-  private readonly emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
   constructor(
     private route: ActivatedRoute,
     private loteService: LoteService,
-    private leadService: LeadService
   ) {}
 
   ngOnInit(): void {
@@ -68,27 +64,20 @@ export class LoteDetalle implements OnInit {
       return;
     }
 
-    if (!this.emailRe.test(email.trim())) {
-      this.errorMsg = 'El email no tiene un formato válido';
-      return;
-    }
+    const parts = [
+      `Hola, soy ${nombre.trim()}.`,
+      `Teléfono: ${telefono.trim()}`,
+      `Email: ${email.trim()}`,
+      `Me interesa: ${this.lote.titulo} (${this.lote.manzana || ''} - Lote ${this.lote.lote_num || ''})`,
+    ];
+    if (mensaje.trim()) parts.push(`Mensaje: ${mensaje.trim()}`);
 
-    this.leadService
-      .createLead({ nombre, telefono, email, propiedad_id: this.lote.id, mensaje })
-      .subscribe({
-        next: (res) => {
-          if (res.status === '1') {
-            this.successMsg = 'Solicitud enviada con éxito. Nos pondremos en contacto pronto.';
-            this.leadForm = { nombre: '', telefono: '', email: '', mensaje: '', consent: false };
-            this.submitted = false;
-          } else {
-            this.errorMsg = res.msg;
-          }
-        },
-        error: () => {
-          this.errorMsg = 'Error al enviar la solicitud. Intente nuevamente.';
-        },
-      });
+    const msg = encodeURIComponent(parts.join('\n'));
+    window.open(`https://wa.me/${environment.whatsappNumber}?text=${msg}`, '_blank');
+
+    this.successMsg = 'Redirigiendo a WhatsApp...';
+    this.leadForm = { nombre: '', telefono: '', email: '', mensaje: '', consent: false };
+    this.submitted = false;
   }
 
   getEstadoClass(): string {

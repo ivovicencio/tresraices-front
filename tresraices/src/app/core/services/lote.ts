@@ -1,48 +1,63 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { ApiResponse, PaginatedData } from '../../models/api-response.model';
-import { Lote } from '../../models/lote.models';
+import { Observable, of } from 'rxjs';
+import { LOTES, LoteData } from '../../data/lotes.data';
+
+export interface ApiResponse<T> {
+  status: '1' | '0';
+  msg: string;
+  data?: T;
+}
+
+export interface PaginatedData<T> {
+  [key: string]: T[] | number;
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
 
 @Injectable({ providedIn: 'root' })
 export class LoteService {
-  private readonly apiUrl = `${environment.apiUrl}/api/propiedades`;
-
-  constructor(private http: HttpClient) {}
-
   getLotes(params?: {
     page?: number;
     limit?: number;
     estado?: string;
     search?: string;
-    precio_min?: number;
-    precio_max?: number;
-  }): Observable<ApiResponse<PaginatedData<Lote>>> {
-    let httpParams = new HttpParams();
-    if (params) {
-      Object.entries(params).forEach(([key, value]) => {
-        if (value !== undefined && value !== null) {
-          httpParams = httpParams.set(key, value.toString());
-        }
-      });
+  }): Observable<ApiResponse<PaginatedData<LoteData>>> {
+    let filtered = [...LOTES];
+
+    if (params?.estado) {
+      filtered = filtered.filter(l => l.estado === params.estado);
     }
-    return this.http.get<ApiResponse<PaginatedData<Lote>>>(this.apiUrl, { params: httpParams });
+    if (params?.search) {
+      const q = params.search.toLowerCase();
+      filtered = filtered.filter(l => l.titulo.toLowerCase().includes(q));
+    }
+
+    const pageNum = Math.max(1, params?.page || 1);
+    const limitNum = Math.min(50, Math.max(1, params?.limit || 10));
+    const total = filtered.length;
+    const start = (pageNum - 1) * limitNum;
+    const propiedades = filtered.slice(start, start + limitNum);
+
+    return of({
+      status: '1',
+      msg: 'Propiedades obtenidas correctamente',
+      data: {
+        propiedades,
+        total,
+        page: pageNum,
+        limit: limitNum,
+        totalPages: Math.ceil(total / limitNum),
+      },
+    });
   }
 
-  getLote(id: number): Observable<ApiResponse<{ propiedad: Lote }>> {
-    return this.http.get<ApiResponse<{ propiedad: Lote }>>(`${this.apiUrl}/${id}`);
-  }
-
-  createLote(data: Partial<Lote>): Observable<ApiResponse<Lote>> {
-    return this.http.post<ApiResponse<Lote>>(this.apiUrl, data);
-  }
-
-  updateLote(id: number, data: Partial<Lote>): Observable<ApiResponse<Lote>> {
-    return this.http.put<ApiResponse<Lote>>(`${this.apiUrl}/${id}`, data);
-  }
-
-  deleteLote(id: number): Observable<ApiResponse<null>> {
-    return this.http.delete<ApiResponse<null>>(`${this.apiUrl}/${id}`);
+  getLote(id: number): Observable<ApiResponse<{ propiedad: LoteData }>> {
+    const lote = LOTES.find(l => l.id === id);
+    if (!lote) {
+      return of({ status: '0', msg: 'Propiedad no encontrada' });
+    }
+    return of({ status: '1', msg: 'Propiedad encontrada', data: { propiedad: lote } });
   }
 }
