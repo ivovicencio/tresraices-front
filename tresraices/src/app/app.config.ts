@@ -1,16 +1,18 @@
 import { ApplicationConfig } from '@angular/core';
-import { provideRouter, withInMemoryScrolling, withViewTransitions } from '@angular/router';
+import { provideRouter, withViewTransitions } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes,
-      withInMemoryScrolling({
-        scrollPositionRestoration: 'enabled',
-        anchorScrolling: 'enabled',
+      withViewTransitions({
+        onViewTransitionCreated: ({ transition }) => {
+          transition.finished.finally(() => {
+            window.scrollTo({ top: 0, behavior: 'instant' });
+          });
+        },
       }),
-      withViewTransitions(),
     ),
     provideHttpClient(),
   ],
