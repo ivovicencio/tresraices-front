@@ -1,9 +1,9 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Hero3d } from '../../shared/components/hero-3d/hero-3d';
 import { MapaInteractivo } from '../mapa-interactivo/mapa-interactivo';
 import { environment } from '../../../environments/environment';
-import { animate, createTimeline, createTimer, onScroll, splitText, svg, stagger, utils } from 'animejs';
+import { animate, createTimeline, createTimer, onScroll, splitText, svg, stagger } from 'animejs';
 
 @Component({
   selector: 'app-landing',
@@ -12,13 +12,31 @@ import { animate, createTimeline, createTimer, onScroll, splitText, svg, stagger
   styleUrl: './landing.css',
 })
 export class Landing implements AfterViewInit {
+  @ViewChild('loteoVideo') loteoVideo!: ElementRef<HTMLVideoElement>;
   whatsapp = environment.whatsappNumber;
+  videoPlayed = false;
 
   ngAfterViewInit() {
     this.animateScrollReveals();
     this.animateWhatsapp();
     this.setupParallax();
-    setTimeout(() => this.fallbackRevealAll(), 8000);
+  }
+
+  toggleVideo() {
+    const video = this.loteoVideo?.nativeElement;
+    if (!video) return;
+    if (this.videoPlayed) {
+      video.pause();
+      this.videoPlayed = false;
+    } else {
+      video.muted = false;
+      video.play();
+      this.videoPlayed = true;
+    }
+  }
+
+  onVideoEnded() {
+    this.videoPlayed = false;
   }
 
   private animateScrollReveals() {
@@ -56,7 +74,7 @@ export class Landing implements AfterViewInit {
           { sel: '.loteo-location', delay: 280 },
           { sel: '.loteo-desc', delay: 380 },
           { sel: '.loteo-feature', delay: 500, staggerDelay: 100 },
-          { sel: '.loteo-image-wrapper', delay: 0 },
+          { sel: '.loteo-video-wrapper', delay: 0 },
           { sel: '.btn-gold', delay: 650 },
           { sel: '.btn-outline-gold', delay: 700 },
         ],
@@ -296,25 +314,6 @@ export class Landing implements AfterViewInit {
       duration: 2000,
       loop: true,
       ease: 'inOutSine',
-    });
-  }
-
-  private fallbackRevealAll() {
-    const allAffected = document.querySelectorAll(
-      '[data-section] .section-label, [data-section] .section-title, [data-section] .section-subtitle, ' +
-      '[data-section] .about-image-wrapper, [data-section] .about-mission, ' +
-      '[data-section] .about-stats .stat-item, [data-section] .work-figure, ' +
-      '[data-section] .proceso-step, [data-section] .loteo-badge, [data-section] .loteo-title, ' +
-      '[data-section] .loteo-location, [data-section] .loteo-desc, [data-section] .loteo-feature, ' +
-      '[data-section] .loteo-image-wrapper, [data-section] .equipo-figure, ' +
-      '[data-section] .cta-image-wrapper, [data-section] .btn-gold, [data-section] .btn-outline-gold, ' +
-      '.whatsapp-float, .about-motion-dot'
-    );
-    allAffected.forEach((el) => {
-      if (el instanceof HTMLElement && el.style.opacity !== '1') {
-        el.style.opacity = '1';
-        el.style.transform = 'translateY(0)';
-      }
     });
   }
 }

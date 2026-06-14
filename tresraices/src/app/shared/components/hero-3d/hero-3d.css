@@ -64,7 +64,6 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   font-family: 'Inter', sans-serif;
-  opacity: 0;
 }
 
 .hero-badge i {
@@ -89,7 +88,6 @@
 .hero-title-line {
   display: block;
   line-height: 1;
-  opacity: 0;
 }
 
 .hero-title .text-gold {
@@ -162,7 +160,6 @@
   justify-content: center;
   gap: 0;
   margin-bottom: 2rem;
-  opacity: 0;
   flex-wrap: wrap;
 }
 
@@ -213,7 +210,6 @@
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
-  opacity: 0;
 }
 
 .btn-gold i {
@@ -227,7 +223,6 @@
   align-items: center;
   gap: 0.5rem;
   margin-top: 3.5rem;
-  opacity: 0;
 }
 
 .scroll-mouse {

@@ -34,7 +34,6 @@ export class Hero3d implements AfterViewInit, OnDestroy {
     this.animateSvgDraw();
     this.animateMotionPath();
     this.initParticles();
-    this.fadeOutSplash();
   }
 
   ngOnDestroy(): void {
@@ -48,17 +47,6 @@ export class Hero3d implements AfterViewInit, OnDestroy {
       .add('.service-strip', { opacity: [0, 1], translateY: [10, 0], ease: 'outCubic' }, 600)
       .add('.hero-actions', { translateY: [15, 0], opacity: [0, 1], ease: 'outCubic' }, 750)
       .add('.hero-scroll', { opacity: [0, 1], translateY: [10, 0], ease: 'outCubic' }, 900);
-  }
-
-  private fadeOutSplash(): void {
-    setTimeout(() => {
-      const splash = document.getElementById('app-loading');
-      if (!splash) return;
-      splash.style.transition = 'opacity .5s ease, transform .4s ease';
-      splash.style.opacity = '0';
-      splash.style.transform = 'scale(.98)';
-      setTimeout(() => splash.remove(), 600);
-    }, 50);
   }
 
   private animateMotionPath(): void {

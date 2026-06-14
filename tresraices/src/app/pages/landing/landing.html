@@ -161,8 +161,19 @@
         </div>
       </div>
       <div class="col-lg-6">
-        <div class="loteo-image-wrapper">
-          <img src="assets/posible-hero2.png" alt="Tierra de Cerros y de Vegas" class="loteo-image" loading="lazy">
+        <div class="loteo-video-wrapper">
+          <div class="loteo-video-inner" [class.played]="videoPlayed" (click)="toggleVideo()">
+            <video #loteoVideo class="loteo-video" preload="metadata" playsinline muted loop
+              (ended)="onVideoEnded()">
+              <source src="assets/promo.mp4" type="video/mp4">
+            </video>
+            <div class="loteo-video-overlay" [class.hidden]="videoPlayed">
+              <div class="loteo-video-btn">
+                <i class="bi bi-play-fill"></i>
+              </div>
+              <span class="loteo-video-label">Ver promo</span>
+            </div>
+          </div>
           <div class="loteo-image-badge">
             <i class="bi bi-diamond-fill"></i>
             <span>Lozano, Jujuy</span>

@@ -12,9 +12,38 @@
     }
 
     <div class="plano-reference">
-      <img src="assets/mapa.png" alt="Plano del loteo Tres Raíces" class="plano-img" draggable="false">
+      <button class="plano-btn" (click)="abrirZoom($event)">
+        <img src="assets/mapa.png" alt="Plano del loteo Tres Raíces" class="plano-img" draggable="false">
+        <span class="plano-zoom-hint"><i class="bi bi-arrows-fullscreen"></i> Ampliar</span>
+      </button>
       <span class="plano-caption">Plano del loteo — referencia general</span>
     </div>
+
+    @if (zoomAbierto()) {
+      <div class="zoom-backdrop" (click)="cerrarZoom($event)"></div>
+      <div class="zoom-modal" (click)="cerrarZoom($event)">
+        <button class="zoom-close" (click)="cerrarZoom($event)" aria-label="Cerrar">&times;</button>
+        <div class="zoom-container" #zoomContainer
+          (mousedown)="iniciarPan($event)"
+          (mousemove)="moverPan($event)"
+          (mouseup)="detenerPan()"
+          (mouseleave)="detenerPan()"
+          (touchstart)="iniciarPanTouch($event)"
+          (touchmove)="moverPanTouch($event)"
+          (touchend)="detenerPan()"
+          (wheel)="zoomRueda($event)">
+          <img src="assets/mapa.png" alt="Plano del loteo Tres Raíces" class="zoom-img"
+            [style.transform]="zoomTransform()"
+            draggable="false">
+        </div>
+        <div class="zoom-controls">
+          <button class="zoom-ctrl-btn" (click)="zoomIn()" aria-label="Acercar"><i class="bi bi-plus-lg"></i></button>
+          <span class="zoom-level">{{ zoomNivel() * 100 | number:'1.0-0' }}%</span>
+          <button class="zoom-ctrl-btn" (click)="zoomOut()" aria-label="Alejar"><i class="bi bi-dash-lg"></i></button>
+          <button class="zoom-ctrl-btn zoom-reset" (click)="resetZoom()" aria-label="Restablecer"><i class="bi bi-arrow-counterclockwise"></i></button>
+        </div>
+      </div>
+    }
 
     @if (lotesPorSector().length === 0) {
       <div class="lotes-empty">

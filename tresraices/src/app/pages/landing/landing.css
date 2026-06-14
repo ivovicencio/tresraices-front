@@ -2,38 +2,6 @@
 :host { display: block; overflow-x: hidden; }
 
 /* ===================== ANIMATION TARGETS ===================== */
-.section-label,
-.section-title,
-.section-subtitle,
-.about-image-wrapper,
-.about-mission,
-.about-stats .stat-item,
-.work-figure,
-.proceso-step,
-.loteo-badge,
-.loteo-title,
-.loteo-location,
-.loteo-desc,
-.loteo-feature,
-.loteo-image-wrapper,
-.equipo-figure,
-.cta-image-wrapper,
-.btn-gold,
-.btn-outline-gold,
-.whatsapp-float,
-.about-motion-dot {
-  opacity: 0;
-}
-
-/* CSS fallback for lotes section */
-[data-section="lotes"] .section-label,
-[data-section="lotes"] .section-title,
-[data-section="lotes"] .section-subtitle {
-  animation: fadeInUp 0.8s ease forwards;
-}
-[data-section="lotes"] .section-label { animation-delay: 0s; }
-[data-section="lotes"] .section-title { animation-delay: 0.12s; }
-[data-section="lotes"] .section-subtitle { animation-delay: 0.24s; }
 
 /* ===================== CONTENT VISIBILITY ===================== */
 [data-section="proceso"],
@@ -370,6 +338,84 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   display: block;
+}
+
+.loteo-video-wrapper {
+  position: relative;
+}
+
+.loteo-video-inner {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  aspect-ratio: 4 / 3;
+  background: #000;
+}
+
+.loteo-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+.loteo-video-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: rgba(0, 0, 0, 0.45);
+  transition: all 0.4s ease;
+}
+
+.loteo-video-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loteo-video-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(201, 162, 65, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #0a0a0a;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 0 rgba(201, 162, 65, 0.5);
+  animation: loteoVideoPulse 2s ease infinite;
+}
+
+.loteo-video-inner:hover .loteo-video-btn {
+  transform: scale(1.08);
+  background: var(--gold-primary);
+}
+
+@keyframes loteoVideoPulse {
+  0% { box-shadow: 0 0 0 0 rgba(201, 162, 65, 0.5); }
+  100% { box-shadow: 0 0 0 20px rgba(201, 162, 65, 0); }
+}
+
+.loteo-video-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.75rem;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  opacity: 0.8;
+}
+
+.loteo-video-inner.played .loteo-video-overlay {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .loteo-image-badge {
