@@ -19,7 +19,6 @@ export class Landing implements AfterViewInit {
   ngAfterViewInit() {
     this.animateScrollReveals();
     this.animateWhatsapp();
-    this.setupParallax();
   }
 
   toggleVideo() {
@@ -49,20 +48,20 @@ export class Landing implements AfterViewInit {
         dataSection: 'about',
         items: [
           { sel: '.about-image-wrapper', delay: 0 },
-          { sel: '.section-label', delay: 200 },
-          { sel: '.section-title', delay: 350 },
-          { sel: '.about-mission', delay: 500 },
-          { sel: '.about-stats .stat-item', delay: 650, staggerDelay: 120 },
-          { sel: '.work-figure', delay: 200, staggerDelay: 150 },
+          { sel: '.section-label', delay: 150 },
+          { sel: '.section-title', delay: 250 },
+          { sel: '.about-mission', delay: 350 },
+          { sel: '.about-stats .stat-item', delay: 500, staggerDelay: 100 },
+          { sel: '.work-figure', delay: 150, staggerDelay: 100 },
         ],
       },
       {
         dataSection: 'proceso',
         items: [
           { sel: '.section-label', delay: 0 },
-          { sel: '.section-title', delay: 150 },
-          { sel: '.section-subtitle', delay: 300 },
-          { sel: '.proceso-step', delay: 480, staggerDelay: 200 },
+          { sel: '.section-title', delay: 100 },
+          { sel: '.section-subtitle', delay: 200 },
+          { sel: '.proceso-step', delay: 350, staggerDelay: 150 },
         ],
         threshold: 0.15,
       },
@@ -70,40 +69,40 @@ export class Landing implements AfterViewInit {
         dataSection: 'cerros',
         items: [
           { sel: '.loteo-badge', delay: 0 },
-          { sel: '.loteo-title', delay: 150 },
-          { sel: '.loteo-location', delay: 280 },
-          { sel: '.loteo-desc', delay: 380 },
-          { sel: '.loteo-feature', delay: 500, staggerDelay: 100 },
+          { sel: '.loteo-title', delay: 100 },
+          { sel: '.loteo-location', delay: 200 },
+          { sel: '.loteo-desc', delay: 300 },
+          { sel: '.loteo-feature', delay: 400, staggerDelay: 80 },
           { sel: '.loteo-video-wrapper', delay: 0 },
-          { sel: '.btn-gold', delay: 650 },
-          { sel: '.btn-outline-gold', delay: 700 },
+          { sel: '.btn-gold', delay: 500 },
+          { sel: '.btn-outline-gold', delay: 550 },
         ],
       },
       {
         dataSection: 'lotes',
         items: [
           { sel: '.section-label', delay: 0 },
-          { sel: '.section-title', delay: 120 },
-          { sel: '.section-subtitle', delay: 240 },
+          { sel: '.section-title', delay: 100 },
+          { sel: '.section-subtitle', delay: 200 },
         ],
       },
       {
         dataSection: 'equipo',
         items: [
           { sel: '.section-label', delay: 0 },
-          { sel: '.section-title', delay: 150 },
-          { sel: '.section-subtitle', delay: 300 },
-          { sel: '.equipo-figure', delay: 480, staggerDelay: 180 },
+          { sel: '.section-title', delay: 100 },
+          { sel: '.section-subtitle', delay: 200 },
+          { sel: '.equipo-figure', delay: 350, staggerDelay: 120 },
         ],
       },
       {
         dataSection: 'contacto',
         items: [
           { sel: '.cta-image-wrapper', delay: 0 },
-          { sel: '.section-label', delay: 200 },
-          { sel: '.section-title', delay: 350 },
-          { sel: '.section-subtitle', delay: 500 },
-          { sel: '.btn-gold', delay: 650 },
+          { sel: '.section-label', delay: 150 },
+          { sel: '.section-title', delay: 250 },
+          { sel: '.section-subtitle', delay: 350 },
+          { sel: '.btn-gold', delay: 500 },
         ],
       },
     ];
@@ -155,54 +154,41 @@ export class Landing implements AfterViewInit {
     const stats = section.querySelectorAll('.about-stats .stat-item');
     const figures = section.querySelectorAll('.work-figure');
 
-    animate(img, { translateY: [55, 0], opacity: [0, 1], duration: 1200, ease: 'outCubic' });
-    animate(label, { translateY: [55, 0], opacity: [0, 1], duration: 1200, ease: 'outCubic', delay: 200 });
-    animate(title, { translateY: [55, 0], opacity: [0, 1], duration: 1200, ease: 'outCubic', delay: 350 });
+    animate(img, { translateY: [40, 0], opacity: [0, 1], duration: 800, ease: 'outCubic' });
+    animate(label, { translateY: [40, 0], opacity: [0, 1], duration: 800, ease: 'outCubic', delay: 150 });
+    animate(title, { translateY: [40, 0], opacity: [0, 1], duration: 800, ease: 'outCubic', delay: 250 });
 
     const aboutLines = section.querySelectorAll('.section-line-path');
     if (aboutLines.length) {
-      animate(svg.createDrawable(aboutLines), { draw: ['0 0', '0 1'], ease: 'outQuad', duration: 500, delay: 200 });
-    }
-
-    const aboutDot = section.querySelectorAll('.about-motion-dot');
-    const aboutPath = section.querySelectorAll('.about-motion-path');
-    if (aboutDot.length && aboutPath.length) {
-      animate(aboutDot, {
-        ease: 'linear', duration: 6000, loop: true, delay: 900,
-        opacity: [0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
-        ...svg.createMotionPath(aboutPath),
-      });
-      animate(svg.createDrawable(aboutPath), {
-        draw: '0 1', ease: 'linear', duration: 6000, loop: true, delay: 900,
-      });
+      animate(svg.createDrawable(aboutLines), { draw: ['0 0', '0 1'], ease: 'outQuad', duration: 400, delay: 150 });
     }
 
     const missionSplit = splitText(mission, { words: true });
-    createTimeline({ delay: 500 })
+    createTimeline({ delay: 350 })
       .add(mission, { opacity: [0, 1], duration: 1 }, 0)
       .add(missionSplit.words, {
+        translateY: [20, 0],
+        opacity: [0, 1],
+        duration: 400,
+        ease: 'outQuad',
+        delay: stagger(20),
+      })
+      .add(stats, {
         translateY: [30, 0],
         opacity: [0, 1],
         duration: 600,
-        ease: 'outQuad',
-        delay: stagger(30),
-      })
-      .add(stats, {
-        translateY: [40, 0],
-        opacity: [0, 1],
-        duration: 800,
         ease: 'outCubic',
-        delay: stagger(120),
+        delay: stagger(100),
       }, 0);
 
     this.animateCounters(section);
 
     animate(figures, {
-      translateY: [60, 0],
+      translateY: [40, 0],
       opacity: [0, 1],
-      duration: 1000,
+      duration: 700,
       ease: 'outCubic',
-      delay: stagger(150),
+      delay: stagger(100),
     });
   }
 
@@ -212,7 +198,7 @@ export class Landing implements AfterViewInit {
       const hasPercent = $el.textContent?.includes('%') ?? false;
       const target = parseInt($el.textContent?.replace(/[^0-9]/g, '') || '0', 10);
       createTimer({
-        duration: 1800,
+        duration: 1200,
         onUpdate: (self) => {
           const val = Math.round(self.progress * target);
           $el.textContent = val + (hasPercent ? '%' : '');
@@ -224,7 +210,7 @@ export class Landing implements AfterViewInit {
   private revealSection(section: HTMLElement, items: { sel: string; delay: number; staggerDelay?: number }[]) {
     const secLines = section.querySelectorAll('.section-line-path');
     if (secLines.length) {
-      animate(svg.createDrawable(secLines), { draw: ['0 0', '0 1'], ease: 'outQuad', duration: 500, delay: 200 });
+      animate(svg.createDrawable(secLines), { draw: ['0 0', '0 1'], ease: 'outQuad', duration: 400, delay: 150 });
     }
 
     items.forEach(({ sel, delay, staggerDelay }) => {
@@ -236,12 +222,12 @@ export class Landing implements AfterViewInit {
         createTimeline({ delay })
           .add(targets, { opacity: [0, 1], duration: 1 }, 0)
           .add(textSplit.words, {
-            translateY: [30, 0],
+            translateY: [20, 0],
             opacity: [0, 1],
-            rotateX: [-15, 0],
-            duration: 700,
+            rotateX: [-10, 0],
+            duration: 500,
             ease: 'outQuad',
-            delay: stagger(35),
+            delay: stagger(25),
           });
         return;
       }
@@ -250,9 +236,9 @@ export class Landing implements AfterViewInit {
         const tl = createTimeline({ delay });
         targets.forEach((t) => {
           tl.add(t, {
-            translateY: [55, 0],
+            translateY: [40, 0],
             opacity: [0, 1],
-            duration: 1000,
+            duration: 700,
             ease: 'outCubic',
           }, `-=${0}`);
         });
@@ -261,44 +247,21 @@ export class Landing implements AfterViewInit {
 
       if (staggerDelay) {
         animate(targets, {
-          translateY: [55, 0],
+          translateY: [40, 0],
           opacity: [0, 1],
-          duration: 1200,
+          duration: 800,
           ease: 'outCubic',
           delay: (_: any, i: number) => delay + i * staggerDelay,
         });
       } else {
         animate(targets, {
-          translateY: [55, 0],
+          translateY: [40, 0],
           opacity: [0, 1],
-          duration: 1200,
+          duration: 800,
           ease: 'outCubic',
           delay,
         });
       }
-    });
-  }
-
-  private setupParallax() {
-    const bg = document.querySelectorAll('.loteo-bg');
-    if (!bg.length) return;
-
-    animate(bg, {
-      translateY: ['0rem', '3rem'],
-      duration: 6000,
-      ease: 'linear',
-      autoplay: onScroll({
-        target: document.querySelector('.loteo-hero')!,
-        container: window as any,
-      }),
-    });
-
-    const badges = document.querySelectorAll('.loteo-image-badge, .about-image-border');
-    animate(badges, {
-      scale: [1, 1.02, 1],
-      duration: 4000,
-      loop: true,
-      ease: 'inOutSine',
     });
   }
 
@@ -310,7 +273,7 @@ export class Landing implements AfterViewInit {
 
   private animateWhatsapp() {
     animate('.whatsapp-float', {
-      scale: [1, 1.08, 1],
+      scale: [1, 1.06, 1],
       duration: 2000,
       loop: true,
       ease: 'inOutSine',
