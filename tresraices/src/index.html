@@ -34,15 +34,138 @@
   ">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- Critical: hero background -->
   <link rel="preload" as="image" href="assets/hero-imagen.png">
-  <link rel="preload" as="image" href="assets/logo-tresraices.png">
-  <link rel="icon" type="image/png" href="assets/R.png">
+
+  <!-- Fonts: non-blocking -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@500;600;700&display=swap">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@500;600;700&display=swap"></noscript>
+
+  <!-- Bootstrap Icons: deferred -->
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"></noscript>
+
+  <link rel="icon" type="image/png" href="assets/R.png">
 </head>
-  <body>
+<body>
+  <div id="app-shell">
+    <style>
+      #app-shell {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: #080c0a;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 80px 1.5rem 0;
+        overflow: hidden;
+        transition: opacity 0.5s ease, transform 0.4s ease;
+      }
+      #app-shell.hide {
+        opacity: 0;
+        transform: scale(0.98);
+        pointer-events: none;
+      }
+      .shell-bg {
+        position: absolute;
+        inset: 0;
+        background: url('assets/hero-imagen.png') center center / cover no-repeat;
+        transform: scale(1.08);
+      }
+      .shell-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(6, 9, 8, 0.94) 0%, rgba(15, 46, 30, 0.7) 50%, rgba(0, 0, 0, 0.55) 100%);
+        z-index: 1;
+      }
+      .shell-content {
+        position: relative;
+        z-index: 2;
+      }
+      .shell-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.4rem 1.2rem;
+        border: 1px solid rgba(201, 162, 65, 0.15);
+        border-radius: 50px;
+        font-size: 0.65rem;
+        color: #c9a241;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 1.5rem;
+        background: rgba(8, 12, 10, 0.5);
+        backdrop-filter: blur(8px);
+        font-family: 'Inter', sans-serif;
+        animation: shellFadeIn 0.6s ease;
+      }
+      .shell-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: clamp(3rem, 8vw, 7rem);
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.05;
+        text-transform: uppercase;
+        margin: 0;
+        animation: shellFadeIn 0.6s ease 0.15s both;
+      }
+      .shell-title-gold {
+        font-size: clamp(3.2rem, 8.5vw, 7.5rem);
+        color: #c9a241;
+      }
+      .shell-bar {
+        width: 140px;
+        height: 2px;
+        background: rgba(201, 162, 65, 0.1);
+        border-radius: 2px;
+        margin: 1.5rem auto 0;
+        overflow: hidden;
+        animation: shellFadeIn 0.6s ease 0.3s both;
+      }
+      .shell-bar-inner {
+        width: 40%;
+        height: 100%;
+        background: #c9a241;
+        border-radius: 2px;
+        animation: shellLoad 1.2s ease infinite;
+      }
+      @keyframes shellFadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes shellLoad {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(350%); }
+      }
+    </style>
+    <div class="shell-bg"></div>
+    <div class="shell-gradient"></div>
+    <div class="shell-content">
+      <div class="shell-badge">Inmobiliaria & Construcciones</div>
+      <h1 class="shell-title">
+        Tres<br>
+        <span class="shell-title-gold">Raíces</span>
+      </h1>
+      <div class="shell-bar"><div class="shell-bar-inner"></div></div>
+    </div>
+  </div>
   <app-root></app-root>
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const shell = document.getElementById('app-shell');
+        if (shell && !shell.classList.contains('hide')) {
+          shell.classList.add('hide');
+          setTimeout(() => shell.remove(), 500);
+        }
+      }, 3000);
+    });
+  </script>
 </body>
 </html>
